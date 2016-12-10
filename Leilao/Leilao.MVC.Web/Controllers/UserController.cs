@@ -40,6 +40,7 @@ namespace Leilao.MVC.Web.Controllers
             return View();
         }
 
+        //método para testes de login, ver PainelController
         [HttpGet]
         [Authorize]
         public ActionResult Painel(string idUser)
@@ -111,7 +112,7 @@ namespace Leilao.MVC.Web.Controllers
             }
             return View();
         }
-
+        
         [HttpPost]
         public async Task<ActionResult> Login(UserViewModel model)
         {
