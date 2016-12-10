@@ -15,6 +15,7 @@ namespace Leilao.Persistencia.Repositories
         ICollection<T> Listar();
         T BuscarPorId(int id);
         ICollection<T> BuscarPor(Expression<Func<T, bool>> filtro);
+        ICollection<T> BuscarPor(Expression<Func<T, bool>> filtro, Expression<Func<T, bool>> filtro2);
         T Buscar(string idUser);
     }
 }

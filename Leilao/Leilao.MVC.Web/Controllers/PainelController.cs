@@ -27,8 +27,8 @@ namespace Leilao.MVC.Web.Controllers
                 var p = pessoa.First();
                 var model = new PainelViewModel()
                 {
-                    NegociacoesCompra = ListarCompras(),
-                    NegociacoesVenda = ListarVendas(),
+                    NegociacoesCompra = ListarCompras(idUser),
+                    NegociacoesVenda = ListarVendas(idUser),
                     Usuario = new UsuarioViewModel()
                     {
                         Pessoa = new PessoaViewModel()
@@ -46,15 +46,15 @@ namespace Leilao.MVC.Web.Controllers
 
         #region PRIVATEs
         //negocioes com ID 1 são Vendas em andamento
-        private ICollection<Negociacao> ListarVendas()
+        private ICollection<Negociacao> ListarVendas(string idUser)
         {
-            return _unit.NegociacaoRepository.BuscarPor(n=>n.Tipo == 1);
+            return _unit.NegociacaoRepository.BuscarPor(n=>n.Tipo == 1, n=>n.IdVendedor == idUser);
         }
 
         //negociacoes com ID 2 são Compras
-        private ICollection<Negociacao> ListarCompras()
+        private ICollection<Negociacao> ListarCompras(string idUser)
         {
-            return _unit.NegociacaoRepository.BuscarPor(n => n.Tipo == 2);
+            return _unit.NegociacaoRepository.BuscarPor(n => n.Tipo == 2, n => n.IdComprador == idUser);
         }
         #endregion
     }

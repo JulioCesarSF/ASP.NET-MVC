@@ -59,6 +59,11 @@ namespace Leilao.Persistencia.Repositories
             _dbSet.Remove(entity);
         }
 
+        public ICollection<T> BuscarPor(Expression<Func<T, bool>> filtro, Expression<Func<T, bool>> filtro2)
+        {
+            return _dbSet.Where(filtro).Where(filtro2).ToList();
+        }
+
         #endregion
     }
 }

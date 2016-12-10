@@ -185,10 +185,14 @@
     <Content Include="Views\Painel\_tabelaVendas.cshtml" />
     <Content Include="Views\Painel\_tabelaCompras.cshtml" />
     <Content Include="Views\Venda\Vender.cshtml" />
+    <Content Include="Views\Venda\_tabelaProdutosCadastrados.cshtml" />
+    <Content Include="Views\Compra\Comprar.cshtml" />
+    <Content Include="Views\Compra\_tabelaProdutosDisponiveis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\PainelController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VendaController.cs" />

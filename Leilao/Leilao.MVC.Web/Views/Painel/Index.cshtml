@@ -1,5 +1,5 @@
 ﻿@model Leilao.MVC.Web.ViewModels.PainelViewModel
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Painel";
 }
@@ -11,12 +11,12 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <p>Menu do Usuário</p>        
-        @Html.ActionLink("Vender", "Vender", "Venda", null, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Comprar", "Comprar", "Compra", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Vender", "Vender", "Venda", new { idUser = User.Identity.GetUserId() }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Comprar", "Comprar", "Compra", new { idUser = User.Identity.GetUserId() }, new { @class = "btn btn-primary" })
     </div>
 </div>
 
-@HelperLayout.SubTitulo("Vendas")
+@HelperLayout.SubTitulo("Produtos que você está vendendo")
 
 @*Tabela de Vendas*@
 
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-@HelperLayout.SubTitulo("Compras")
+@HelperLayout.SubTitulo("Produto que você comprou")
 
 @*Tabela de Compras*@
 <div class="row">
