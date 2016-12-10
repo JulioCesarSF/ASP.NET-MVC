@@ -8,8 +8,9 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <p>Menu do Usuário</p>
+        @Html.ActionLink("Sair", "Logout", "User", null, new { @class = "btn btn-danger" })
         @Html.ActionLink("Vender", "Vender", null, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Vender", "Comprar", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Comprar", "Comprar", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 

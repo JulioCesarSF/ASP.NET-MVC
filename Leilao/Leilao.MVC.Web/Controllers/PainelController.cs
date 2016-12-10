@@ -13,7 +13,6 @@ namespace Leilao.MVC.Web.Controllers
     [Authorize]
     public class PainelController : Controller
     {
-
         #region FIELDs
         private UnitOfWork _unit = new UnitOfWork();
         #endregion

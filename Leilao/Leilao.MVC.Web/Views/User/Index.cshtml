@@ -1,0 +1,25 @@
+﻿@model Leilao.MVC.Web.ViewModels.PessoaViewModel
+@{
+    ViewBag.Title = "Painel";
+}
+
+@HelperLayout.Titulo("Página Principal")
+
+@if (User.Identity.IsAuthenticated)
+{
+    if(Model.Nome == null)
+    {
+        @HelperLayout.SubTitulo("Bem Vindo, faça login para iniciar!")
+    }
+    else
+    {
+        @HelperLayout.SubTitulo("Bem Vindo! " + Model.Nome)
+        @Html.ActionLink("Painel do Usuário", "Painel", "Painel", new { idUser = Model.IdUser }, new { @class = "btn btn-primary" })
+    }
+}
+else
+{
+    @HelperLayout.SubTitulo("Bem Vindo, faça login para iniciar!")
+}
+
+

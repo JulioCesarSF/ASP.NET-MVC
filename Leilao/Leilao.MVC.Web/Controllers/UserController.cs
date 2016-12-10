@@ -42,24 +42,24 @@ namespace Leilao.MVC.Web.Controllers
             return View();
         }
 
-        //método para testes de login, ver PainelController
+        //método de página Inicial (index.cshtml)
         [HttpGet]
-        [Authorize]
-        public ActionResult Painel(string idUser)
+        [Authorize]        
+        public ActionResult Index(string idUser)
         {
-            var model = new PessoaViewModel()
+            var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == idUser);
+            if (pessoa.Count == 1)
             {
-                //idUser que será usado para add produtos, compras e vendas
-                IdUser = idUser
-            };
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            GetAuthenticationManager().SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Painel", "User");            
+                var p = pessoa.First();
+                var model = new PessoaViewModel()
+                {
+                    Nome = p.Nome,
+                    //idUser que será usado para add produtos, compras e vendas
+                    IdUser = idUser
+                };
+                return View(model);
+            }
+            return View();
         }
         #endregion
 
@@ -105,7 +105,7 @@ namespace Leilao.MVC.Web.Controllers
                 GetAuthenticationManager().SignIn(identity);
 
                 //redirecionar para o Painel do Usuário com o idUser no PainelController
-                return RedirectToAction("Painel", "Painel", new { idUser = pessoa.IdUser });
+                return RedirectToAction("Index", "User", new { idUser = pessoa.IdUser });
             }
 
             foreach (var error in result.Errors)
@@ -135,9 +135,15 @@ namespace Leilao.MVC.Web.Controllers
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             GetAuthenticationManager().SignIn(identity);
             //voltar a para View que tentou acessar
-            return RedirectToAction("Painel", "Painel", new { idUser = identity.GetUserId() });
+            return RedirectToAction("Index", "User", new { idUser = identity.GetUserId() });
         }
-        
+
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            GetAuthenticationManager().SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "User");
+        }
         #endregion
 
         #region PRIVATE
