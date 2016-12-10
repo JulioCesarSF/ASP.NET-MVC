@@ -180,7 +180,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\User\Registrar.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Painel\Painel.cshtml" />
+    <Content Include="Views\Painel\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Painel\_tabelaVendas.cshtml" />
     <Content Include="Views\Painel\_tabelaCompras.cshtml" />

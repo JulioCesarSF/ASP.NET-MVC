@@ -47,11 +47,12 @@ namespace Leilao.MVC.Web.Controllers
         [Authorize]        
         public ActionResult Index(string idUser)
         {
+            var model = new PessoaViewModel();
             var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == idUser);
             if (pessoa.Count == 1)
             {
                 var p = pessoa.First();
-                var model = new PessoaViewModel()
+                model = new PessoaViewModel()
                 {
                     Nome = p.Nome,
                     //idUser que será usado para add produtos, compras e vendas
@@ -59,7 +60,12 @@ namespace Leilao.MVC.Web.Controllers
                 };
                 return View(model);
             }
-            return View();
+
+            model = new PessoaViewModel()
+            {
+                IdUser = "0"
+            };
+            return View(model);
         }
         #endregion
 

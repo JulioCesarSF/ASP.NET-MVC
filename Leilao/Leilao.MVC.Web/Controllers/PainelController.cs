@@ -19,7 +19,7 @@ namespace Leilao.MVC.Web.Controllers
 
         #region GETs
         [HttpGet]        
-        public ActionResult Painel(string idUser)
+        public ActionResult Index(string idUser)
         {
             var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == idUser);
             if (pessoa.Count == 1)
