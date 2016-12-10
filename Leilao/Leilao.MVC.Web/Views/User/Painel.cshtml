@@ -1,0 +1,24 @@
+﻿@model Leilao.MVC.Web.ViewModels.PessoaViewModel
+@{
+    ViewBag.Title = "Painel";
+}
+
+@HelperLayout.Titulo("Principal")
+
+@HelperLayout.SubTitulo("Bem - Vindo")
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+    <p>@Model.IdUser</p>
+    
+    @Html.ActionLink("Sair", "Logout")
+}
+else
+{
+    @Html.ActionLink("Entrar", "Login")
+    <br>
+    @Html.ActionLink("Registrar", "Registrar")
+}
+
+

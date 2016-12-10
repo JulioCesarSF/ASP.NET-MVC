@@ -1,0 +1,33 @@
+﻿@model Leilao.MVC.Web.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+@HelperLayout.Titulo("Login")
+
+@HelperLayout.SubTitulo("Infomações para Login")
+
+@Html.ValidationSummary()
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.LabelFor(u => u.Email)
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(u => u.Password)
+                @Html.TextBoxFor(u => u.Password, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" />
+            </div>
+        }
+    </div>
+
+    @Html.ActionLink("Sou novo aqui, quero me registrar!", "Registrar")
+</div>
