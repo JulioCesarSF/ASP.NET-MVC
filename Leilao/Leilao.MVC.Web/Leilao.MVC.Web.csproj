@@ -182,6 +182,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Painel\Painel.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Painel\_tabelaVendas.cshtml" />
+    <Content Include="Views\Painel\_tabelaCompras.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />

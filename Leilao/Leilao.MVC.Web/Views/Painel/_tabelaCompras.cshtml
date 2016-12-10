@@ -1,0 +1,26 @@
+﻿@model List<Leilao.Dominio.Models.Negociacao>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <img src=@item.Produto.Imagem class="img-thumbnail" alt=@item.Produto.Imagem width="100" height="50">
+        </td>
+        <td>
+            <h4>@item.Produto.Nome</h4>
+        </td>
+        <td>@item.Valor</td>
+        <td>@item.Produto.Valor</td>
+        <td>
+            @if (item.Status == "Vendido")
+            {
+                <a href="https://pagseguro.uol.com.br/integracao/botoes_de_pagamento.jhtml#comprar" class="btn btn-success">Finalizar Compra</a>
+            }
+            else
+            {
+                @item.Status
+            }
+        </td>
+    </tr>
+}
+

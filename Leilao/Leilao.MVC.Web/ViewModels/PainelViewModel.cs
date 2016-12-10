@@ -12,5 +12,9 @@ namespace Leilao.MVC.Web.ViewModels
         public ICollection<Negociacao> NegociacoesVenda { get; set; }
         public ICollection<Negociacao> NegociacoesCompra { get; set; }
         #endregion
+
+        #region FIELDs
+        public UsuarioViewModel Usuario { get; set; }
+        #endregion
     }
 }

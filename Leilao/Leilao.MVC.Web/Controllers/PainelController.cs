@@ -25,15 +25,36 @@ namespace Leilao.MVC.Web.Controllers
             if (pessoa.Count == 1)
             {
                 var p = pessoa.First();
-                var model = new PessoaViewModel()
+                var model = new PainelViewModel()
                 {
-                    Nome = p.Nome,
-                    //idUser que será usado para add produtos, compras e vendas
-                    IdUser = idUser
+                    NegociacoesCompra = ListarCompras(),
+                    NegociacoesVenda = ListarVendas(),
+                    Usuario = new UsuarioViewModel()
+                    {
+                        Pessoa = new PessoaViewModel()
+                        {
+                            Nome = p.Nome,
+                            IdUser = p.IdUser
+                        }
+                    }                   
                 };
                 return View(model);
             }            
             return RedirectToAction("Login", "User");
+        }
+        #endregion
+
+        #region PRIVATEs
+        //negocioes com ID 1 são Vendas em andamento
+        private ICollection<Negociacao> ListarVendas()
+        {
+            return _unit.NegociacaoRepository.BuscarPor(n=>n.Tipo == 1);
+        }
+
+        //negociacoes com ID 2 são Compras
+        private ICollection<Negociacao> ListarCompras()
+        {
+            return _unit.NegociacaoRepository.BuscarPor(n => n.Tipo == 2);
         }
         #endregion
     }
