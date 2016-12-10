@@ -13,6 +13,8 @@ using System.Web.Mvc;
 
 namespace Leilao.MVC.Web.Controllers
 {
+    //Classe responsável pelo Login, Logout e Registro de Usuário
+    // **** Não alterar ****
     public class UserController : Controller
     {
         #region FIELDs
@@ -102,8 +104,8 @@ namespace Leilao.MVC.Web.Controllers
                 //logar a identidade
                 GetAuthenticationManager().SignIn(identity);
 
-                //redirecionar para o Painel do Usuário com o idUser
-                return RedirectToAction("Painel", "User", new { idUser = pessoa.IdUser });
+                //redirecionar para o Painel do Usuário com o idUser no PainelController
+                return RedirectToAction("Painel", "Painel", new { idUser = pessoa.IdUser });
             }
 
             foreach (var error in result.Errors)
@@ -133,12 +135,12 @@ namespace Leilao.MVC.Web.Controllers
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             GetAuthenticationManager().SignIn(identity);
             //voltar a para View que tentou acessar
-            return RedirectToAction("Painel", "User", new { idUser = identity.GetUserId() });
+            return RedirectToAction("Painel", "Painel", new { idUser = identity.GetUserId() });
         }
         
         #endregion
 
-        #region Private
+        #region PRIVATE
         private IAuthenticationManager GetAuthenticationManager()
         {
             var ctx = Request.GetOwinContext();

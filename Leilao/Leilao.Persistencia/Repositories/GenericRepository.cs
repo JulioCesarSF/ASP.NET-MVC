@@ -33,6 +33,11 @@ namespace Leilao.Persistencia.Repositories
             return _dbSet.Where(filtro).ToList();
         }
 
+        public T Buscar(string idUser)
+        {
+            return _dbSet.Find(idUser);
+        }
+
         public T BuscarPorId(int id)
         {
             return _dbSet.Find(id);

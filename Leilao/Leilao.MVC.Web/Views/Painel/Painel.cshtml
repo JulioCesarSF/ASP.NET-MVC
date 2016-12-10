@@ -1,0 +1,22 @@
+﻿@model Leilao.MVC.Web.ViewModels.PessoaViewModel
+@{
+    ViewBag.Title = "Painel";
+}
+
+@HelperLayout.Titulo("Painel do Usuário de " + Model.Nome + " id:" + Model.IdUser)
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <p>Menu do Usuário</p>
+        @Html.ActionLink("Vender", "Vender", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Vender", "Comprar", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+@HelperLayout.SubTitulo("Vendas")
+
+@*Tabela de Vendas*@
+
+@HelperLayout.SubTitulo("Compras")
+
+@*Tabela de Compras*@
