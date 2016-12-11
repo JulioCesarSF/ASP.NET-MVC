@@ -13,7 +13,10 @@
         <td>
             @if (item.Status.Equals("Em andamento"))
             {
-                <button onclick="setValues(@item.Id, @item.Produto.Valor, @item.Valor.ToString().Replace(",", "."))" class="btn btn-primary" data-toggle="modal" data-target="#propostaModal">Opções</button>
+                <script>
+                    var valores = ["@item.Id", "@item.Produto.Valor", "@item.Valor"];
+                </script>
+                <button onclick="setValues(valores)" class="btn btn-primary" data-toggle="modal" data-target="#propostaModal">Opções</button>
             }else
             {
                 @: -
@@ -24,11 +27,11 @@
 }
 
  <script>    
-    function setValues(id, valorOriginal, valorDaProposta) {
-        console.log("id " + id + " valorOriginal " + valorOriginal + " valorDaProposta " + valorDaProposta);
-        $("Id").val(id);
-        $("ValorOriginal").val(valorOriginal);
-        $("ValorDaProposta").val(valorDaProposta);
+    function setValues(valores) {
+        console.log("id " + valores[0] + " valorOriginal " + valores[1] + " valorDaProposta " + valores[2]);
+        $("#Id").val(valores[0]);
+        $("#ValorOriginal").val(valores[1]);
+        $("#ValorDaProposta").val(valores[2]);
     }   
 </script>  
 
