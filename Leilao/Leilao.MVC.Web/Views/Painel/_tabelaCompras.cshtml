@@ -4,6 +4,7 @@
 {
     <tr>
         <td>@item.Id</td>
+        <td>@item.Data.Value.Date.ToString("dd/MM/yyyy")</td>
         <td>@item.Produto.Nome</td>
         <td>
             <img src=@item.Produto.Imagem alt=@item.Produto.Nome width="50" height="50">
