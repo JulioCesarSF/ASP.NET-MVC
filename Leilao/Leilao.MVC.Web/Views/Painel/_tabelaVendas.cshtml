@@ -13,9 +13,7 @@
         <td>
             @if (item.Status == "Em andamento")
             {
-                <button onclick="proposta.innerHTML='A proposta foi de: R$'+@item.Produto.Valor ,negociacaoId.value = @item.Id ,negociacao2Id.value = @item.Id" type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
-                    Ver Proposta
-                </button>
+                <button onclick="setValues(@item.Id, @item.Produto.Valor, @item.Valor.ToString().Replace(",", "."))" class="btn btn-primary" data-toggle="modal" data-target="#propostaModal">Opções</button>
             }else
             {
                
@@ -24,3 +22,13 @@
 
     </tr>
 }
+
+ <script>    
+    function setValues(id, valorOriginal, valorDaProposta) {
+        console.log("id " + id + " valorOriginal " + valorOriginal + " valorDaProposta " + valorDaProposta);
+        $("Id").val(id);
+        $("ValorOriginal").val(valorOriginal);
+        $("ValorDaProposta").val(valorDaProposta);
+    }   
+</script>  
+

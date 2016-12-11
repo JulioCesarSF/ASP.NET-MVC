@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <p>Menu do Usuário</p>        
+        <p>Menu do Usuário</p>
         @Html.ActionLink("Vender", "Vender", "Venda", new { idUser = User.Identity.GetUserId() }, new { @class = "btn btn-primary" })
         @Html.ActionLink("Comprar", "Comprar", "Compra", new { idUser = User.Identity.GetUserId() }, new { @class = "btn btn-primary" })
     </div>
@@ -63,4 +63,45 @@
         </table>
     </div>
 </div>
+
+<!--Modal de aceite de proposta da venda -->
+<div class="modal fade" id="propostaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Proposta</h4>
+            </div>
+            @using (Html.BeginForm("Proposta", "Venda"))
+            {
+                <input type="hidden" id="Id" name="Id" /> //id da negociacao
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.Label("Valor Original")
+                        <input type="text" id="ValorOriginal" disabled="disabled" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Valor da Proposta")
+                        <input type="text" id="ValorDaProposta" disabled="disabled" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAceitar" onclick="aceitarProposta()" class="btn btn-success btn-sm">Aceitar</button>
+                    <button id="btnRecusar" onclick="recusarProposta()" class="btn btn-warning btn-sm">Recusar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function aceitarProposta() {
+
+    }
+
+    function recusarProposta() {
+
+    }
+</script>
 

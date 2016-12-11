@@ -3,8 +3,8 @@
 @foreach (var item in Model)
 {
     <tr>
-        <td>@item.Id</td>        
-        <td>@Html.ActionLink("Produto", "VisualizarProduto", "Compra", new { Id = item.IdProduto }, new { @class="btn btn-primary btn-sm" })</td>
+        <td>@item.Id</td>
+        <td>@Html.ActionLink("Produto", "VisualizarProduto", "Compra", new { Id = item.IdProduto }, new { @class = "btn btn-primary btn-sm" })</td>
         <td>
             <button type="button" onclick="setValores(@item.Id, @item.Produto.Valor)" id="btnComprar"
                     class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalComprar">
@@ -14,9 +14,11 @@
     </tr>
 }
 
+
 <script>
     function setValores(Id, ValorProduto) {
         document.getElementById("Id").value = Id;
         document.getElementById("Produto_Valor").value = ValorProduto;
     }
 </script>
+
