@@ -31,6 +31,14 @@ namespace Leilao.MVC.Web.Controllers
             return View(model);
         }
 
+        //método para buscar negociações na tela de compra
+        [HttpGet]
+        public ActionResult BuscarProduto(string nomeProduto, string idUser)
+        {                       
+            var negociacoes = _unit.NegociacaoRepository.BuscarPor(n => n.Produto.Nome == nomeProduto, n => n.IdVendedor != idUser);
+            return PartialView("_tabelaProdutosDisponiveis", negociacoes);
+        }
+
         [HttpGet]
         public ActionResult VisualizarProduto(int IdProduto)
         {
