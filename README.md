@@ -21,7 +21,7 @@
 ![painel login](https://s27.postimg.org/qpsjo6nkj/painel_user_login.png)
 
 ### TODO
-> Implementar busca em algum locais do projeto para o usuário
-> Implementar editar/deletar produto
-> Implementar cancelamento de venda
-> Implementar sistema de créditos
+1. Implementar busca em algum locais do projeto para o usuário
+2. Implementar editar/deletar produto
+3. Implementar cancelamento de venda
+4. Implementar sistema de créditos
