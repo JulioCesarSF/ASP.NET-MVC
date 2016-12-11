@@ -1,0 +1,27 @@
+﻿@model List<Bidme.Dominio.Models.Negociacao>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Id</td>
+        <td>@item.Data.Value.Date.ToString("dd/MM/yyyy")</td>
+        <td>@item.Produto.Nome</td>
+        <td>
+            <img src=@item.Produto.Imagem alt=@item.Produto.Nome width="50" height="50">
+        </td>
+        <td>@item.Valor</td>
+        <td>@item.Produto.Valor</td>
+        <td>@item.Status</td>   
+        <td>
+            @if (item.Status == "Aguardando Pagamento")
+            {
+                <a href="https://www.paypal.com/signin" class="btn btn-success btn-sm">Pagar</a>
+            }
+            else
+            {
+                @: - 
+            }
+        </td>
+    </tr>
+}
+

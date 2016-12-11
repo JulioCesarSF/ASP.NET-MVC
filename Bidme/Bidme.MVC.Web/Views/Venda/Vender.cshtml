@@ -1,0 +1,95 @@
+﻿@model Bidme.MVC.Web.ViewModels.ProdutoViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Vender";
+}
+
+@HelperLayout.Titulo("Vender Produto")
+
+@HelperLayout.SubTitulo("Cadastrar Produto para venda")
+
+<div class="row">
+
+    @Html.ValidationSummary()
+
+    @using (Html.BeginForm("Vender", "Venda"))
+    {
+        <div class="col-md-4 col-sm-4">
+            @Html.HiddenFor(p=>p.IdUser, new { @value=User.Identity.GetUserId()})
+            <div class="form-group">
+                @Html.LabelFor(p => p.Nome)
+                @Html.TextBoxFor(p => p.Nome, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.Descricao)
+                @Html.TextAreaFor(p => p.Descricao, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4">
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.Imagem)
+                @Html.TextBoxFor(p => p.Imagem, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.Valor)
+                @Html.TextBoxFor(p => p.Valor, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Cadastrar" />
+                <input type="reset" class="btn btn-danger" value="Limpar" />
+            </div>
+        </div>
+    }
+</div>
+
+@HelperLayout.SubTitulo("Vender um Produto já cadastrado")
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial("_tabelaProdutosCadastrados", Model.Produtos)
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVender" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmar Venda de Produto</h4>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja vender este produto?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Negociar", "Venda"))
+                {
+                    <input type="hidden" id="Id" name="Id" />                                       
+                    @Html.HiddenFor(p => p.IdUser, new { @value = User.Identity.GetUserId() })
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" class="btn btn-success" value="Negociar" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

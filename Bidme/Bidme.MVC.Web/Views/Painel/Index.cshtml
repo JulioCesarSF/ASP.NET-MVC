@@ -1,0 +1,117 @@
+﻿@model Bidme.MVC.Web.ViewModels.PainelViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Painel";
+}
+
+@HelperLayout.Titulo("Painel do " + Model.Usuario.Pessoa.Nome)
+
+@HelperLayout.SubTitulo("Produtos que você está vendendo")
+
+@*Tabela de Vendas*@
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id Negociação</th>
+                    <th>Data</th>
+                    <th>Nome do Produto</th>
+                    <th>Imagem</th>
+                    <th>Valor Negociação</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial("_tabelaVendas", Model.NegociacoesVenda)
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@HelperLayout.SubTitulo("Produtos que você está comprando")
+
+@*Tabela de Compras*@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id Negociação</th>
+                    <th>Data</th>
+                    <th>Nome do Produto</th>
+                    <th>Imagem</th>
+                    <th>Valor Negociação</th>
+                    <th>Valor Original</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial("_tabelaCompras", Model.NegociacoesCompra)
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Modal de aceite de proposta da venda -->
+<div class="modal" id="propostaModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Proposta</h4>
+            </div>
+            @using (Html.BeginForm("Proposta", "Venda", FormMethod.Post, new { @Id="formProposta" }))
+            {
+                <input type="hidden" id="Id" name="Id" /> //id da negociacao
+                <input type="hidden" id="Aceite" name="Aceite" />
+                <input type="hidden" id="IdUser" value=@User.Identity.GetUserId() />
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.Label("Valor Original")
+                        <input type="text" id="ValorOriginal" disabled="disabled" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Valor da Proposta")
+                        <input type="text" id="ValorDaProposta" disabled="disabled" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAceitar" onclick="aceitarProposta()" class="btn btn-success btn-sm">Aceitar</button>
+                    <button id="btnRecusar" onclick="recusarProposta()" class="btn btn-warning btn-sm">Recusar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script type="text/javascript">
+
+    $().ready(function () {        
+
+    });
+
+    function aceitarProposta() {
+        $("#Aceite").val("1");
+        //$("#formProposta").submit();
+    }
+
+    function recusarProposta() {
+        $("#Aceite").val("2");
+        //$("#formProposta").submit();
+    }
+
+    function setValues(valores) {
+        console.log("id " + valores[0] + " valorOriginal " + valores[1] + " valorDaProposta " + valores[2]);
+        $("#Id").val(valores[0]);
+        $("#ValorOriginal").val(valores[1]);
+        $("#ValorDaProposta").val(valores[2]);
+    }
+    
+</script>  
+}
+
