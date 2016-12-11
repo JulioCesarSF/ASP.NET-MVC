@@ -1,5 +1,10 @@
-# Projeto ASP.NET MVC
-> Este projeto na realidade não é um leilão como a proposta original e sim um site em que o usuário pode colocar produtos a venda e o comprador fazer um proposta em cima do valor de venda.
+# Projeto ASP.NET MVC Bidme
+> A proposta do projeto é a de lances em um produto até que o vendedor aceite vender pelo preço.
+> O usuário terá crédito que possuem determinado valor e ele poderá usar estes créditos para abaixar o preço do preço.
+> Créditos ainda não implementados
+
+## Author
+> Júlio César Schincariol Filho
 
 ## Conteúdo dos Projetos dentro da Solution
 1. Database : MS SQL Servr
@@ -14,3 +19,9 @@
 
 > Painel de Login
 ![painel login](https://s27.postimg.org/qpsjo6nkj/painel_user_login.png)
+
+### TODO
+> Implementar busca em algum locais do projeto para o usuário
+> Implementar editar/deletar produto
+> Implementar cancelamento de venda
+> Implementar sistema de créditos
