@@ -6,14 +6,18 @@
 <hr />
 <div class="row">
     <div class="col-md-4 col-sm-4"></div>
-    @using (Html.BeginForm("BuscarProduto", "Compra", FormMethod.Get))
+    @using (Ajax.BeginForm("BuscarProduto", null,
+        new AjaxOptions { HttpMethod="get", UpdateTargetId="thumbs", InsertionMode = InsertionMode.Replace},
+        new { id="formBuscaProduto" }))
     {
+        <input type="hidden" name="IdUser" id="IdUser" value="@User.Identity.GetUserId()" />
+
         <div class="col-md-5 col-sm-5">
-            <input type="text" placeholder="Buscar produto" class="form-control" />
+            <input type="text" id="Nome" name="Nome" class="form-control" placeholder="Buscar Produto" />            
         </div>
 
         <div class="col-md-1 col-sm-1">
-            @*<input type="submit" value="Buscar" class="btn btn-info btn-sm" />*@
+            <input type="submit" value="Buscar" class="btn btn-info btn-sm" />
         </div>
     }
     <div class="col-md-2 col-sm-2"></div>

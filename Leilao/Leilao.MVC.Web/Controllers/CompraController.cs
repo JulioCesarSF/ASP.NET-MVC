@@ -33,10 +33,19 @@ namespace Leilao.MVC.Web.Controllers
 
         //método para buscar negociações na tela de compra
         [HttpGet]
-        public ActionResult BuscarProduto(string nomeProduto, string idUser)
-        {                       
-            var negociacoes = _unit.NegociacaoRepository.BuscarPor(n => n.Produto.Nome == nomeProduto, n => n.IdVendedor != idUser);
-            return PartialView("_tabelaProdutosDisponiveis", negociacoes);
+        public ActionResult BuscarProduto(string nome, string idUser)
+        {            
+            if (nome == "")
+            {
+                var negociacoes = _unit.NegociacaoRepository
+                    .BuscarPor(n => n.IdComprador == null, n=>n.IdVendedor != idUser)
+                    .Where(n=>n.Tipo == 1)
+                    .ToList();
+                return PartialView("_tabelaProdutosDisponiveis", negociacoes);
+            }                     
+            var negociacoesComNome = _unit.NegociacaoRepository.BuscarPor(n => n.Produto.Nome == nome, n => n.IdComprador == null)
+                .Where(n=>n.Tipo == 1).Where(n=>n.IdVendedor != idUser).ToList();
+            return PartialView("_tabelaProdutosDisponiveis", negociacoesComNome);
         }
 
         [HttpGet]
