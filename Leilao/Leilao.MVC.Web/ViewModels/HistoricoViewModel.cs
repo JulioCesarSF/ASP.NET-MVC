@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Leilao.MVC.Web.ViewModels
 {
+    //a fazer
     public class HistoricoViewModel
     {
     }

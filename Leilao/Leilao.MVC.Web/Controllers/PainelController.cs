@@ -45,16 +45,16 @@ namespace Leilao.MVC.Web.Controllers
         #endregion
 
         #region PRIVATEs
+        //negociacoes com ID 2 são Compras que já foram finalizadas (usar para histórico)
         //negocioes com ID 1 são Vendas em andamento
         private ICollection<Negociacao> ListarVendas(string idUser)
         {
             return _unit.NegociacaoRepository.BuscarPor(n=>n.Tipo == 1, n=>n.IdVendedor == idUser);
         }
-
-        //negociacoes com ID 2 são Compras
+        
         private ICollection<Negociacao> ListarCompras(string idUser)
         {
-            return _unit.NegociacaoRepository.BuscarPor(n => n.Tipo == 2, n => n.IdComprador == idUser);
+            return _unit.NegociacaoRepository.BuscarPor(n => n.Tipo == 1, n => n.IdComprador == idUser);
         }
         #endregion
     }
