@@ -12,13 +12,13 @@
         <td>@item.Produto.Valor</td>
         <td>@item.Status</td>   
         <td>
-            @if (item.Status == "Vendido")
+            @if (item.Status == "Aguardando Pagamento")
             {
-                <a href="https://pagseguro.uol.com.br/integracao/botoes_de_pagamento.jhtml#comprar" class="btn btn-success">Finalizar Compra</a>
+                <a href="https://www.paypal.com/signin" class="btn btn-success btn-sm">Pagar</a>
             }
             else
             {
-                @item.Status
+                @: - 
             }
         </td>
     </tr>
