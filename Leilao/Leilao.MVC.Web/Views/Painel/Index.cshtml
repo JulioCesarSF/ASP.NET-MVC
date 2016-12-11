@@ -94,14 +94,28 @@
         </div>
     </div>
 </div>
-
+@section scripts{
 <script>
-    function aceitarProposta() {
 
-    }
+    $().ready(function () {
 
-    function recusarProposta() {
+        function aceitarProposta() {
 
-    }
-</script>
+        }
+
+        function recusarProposta() {
+
+        }
+
+        function setValues(valores) {
+            console.log("id " + valores[0] + " valorOriginal " + valores[1] + " valorDaProposta " + valores[2]);
+            $("#Id").val(valores[0]);
+            $("#ValorOriginal").val(valores[1]);
+            $("#ValorDaProposta").val(valores[2]);
+        }
+
+    });
+    
+</script>  
+}
 

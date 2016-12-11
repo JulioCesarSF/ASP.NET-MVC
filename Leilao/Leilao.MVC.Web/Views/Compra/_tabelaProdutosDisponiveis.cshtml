@@ -4,15 +4,18 @@
     @foreach (var item in Model)
     {
         <div class="col-md-3 col-sm-2">
-            <div class="thumbnail">
+            <div class="thumbnail" id="thumb">
                 <img src="@item.Produto.Imagem" alt="@item.Produto.Nome" width="120" height="180" />
                 <div class="caption">
                     <h4 style="text-align:center">@item.Produto.Nome</h4>
                     <p style="text-align:center">R$ @item.Produto.Valor</p>
                     <p style="text-align:center">
-                        <button type="button" onclick="setValores(@item.Id, @item.Produto.Valor)" id="btnComprar"
+                        <script>                            
+                          var valores = ["@item.Id", "@item.Produto.Valor"];
+                        </script>
+                        <button onclick="setFormValues(valores);" id="btnProposta" name="btnProposta"
                                 class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalComprar">
-                            Ofertar
+                            Eu Quero!
                         </button>
                     </p>
                 </div>
@@ -20,12 +23,4 @@
         </div>
     }
 </div>
-
-
-<script>
-    function setValores(Id, ValorProduto) {
-        document.getElementById("Id").value = Id;
-        document.getElementById("Produto_Valor").value = ValorProduto;
-    }
-</script>
 
