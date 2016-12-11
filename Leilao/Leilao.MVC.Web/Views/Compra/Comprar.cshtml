@@ -6,24 +6,8 @@
 
 @HelperLayout.Titulo("Produtos Disponíveis no Site para Compra")
 
-@HelperLayout.SubTitulo("Produtos")
+@Html.Partial("_tabelaProdutosDisponiveis", Model.Negociacoes)
 
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Produto</th>                    
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @Html.Partial("_tabelaProdutosDisponiveis", Model.Negociacoes)
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <!--Modal -->
 <div class="modal" id="ModalComprar">
