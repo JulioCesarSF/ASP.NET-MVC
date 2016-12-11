@@ -23,10 +23,10 @@ namespace Leilao.MVC.Web.Controllers
             {
                 return RedirectToAction("Index", "Painel");
             }
-            var negociacoes = _unit.NegociacaoRepository.BuscarPor(n => n.IdVendedor != idUser, n=>n.Tipo == 1);            
+            ICollection<Negociacao> negociacoes = ListarNegociacoes(idUser);
             var model = new NegociacaoViewModel()
             {
-                Negociacoes = negociacoes               
+                Negociacoes = negociacoes
             };
             return View(model);
         }
@@ -62,6 +62,14 @@ namespace Leilao.MVC.Web.Controllers
 
             return RedirectToAction("Index", "Painel", new { idUser = model.IdUser });
         }
+        #endregion
+
+        #region PRIVATEs
+        private ICollection<Negociacao> ListarNegociacoes(string idUser)
+        {
+            return _unit.NegociacaoRepository.BuscarPor(n => n.IdVendedor != idUser, n => n.Tipo == 1);
+        }
+
         #endregion
     }
 }
