@@ -67,7 +67,9 @@ namespace Leilao.MVC.Web.Controllers
         #region PRIVATEs
         private ICollection<Negociacao> ListarNegociacoes(string idUser)
         {
-            return _unit.NegociacaoRepository.BuscarPor(n => n.IdVendedor != idUser, n => n.Tipo == 1).Where(n => n.IdComprador == null).ToList();
+            return _unit.NegociacaoRepository.BuscarPor(n => n.IdVendedor != idUser, n => n.Tipo == 1)
+                .Where(n => n.IdComprador == null)
+                .ToList();
         }
 
         #endregion
