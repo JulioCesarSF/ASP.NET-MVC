@@ -145,6 +145,7 @@ namespace Leilao.MVC.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Logout()
         {
             GetAuthenticationManager().SignOut(DefaultAuthenticationTypes.ApplicationCookie);

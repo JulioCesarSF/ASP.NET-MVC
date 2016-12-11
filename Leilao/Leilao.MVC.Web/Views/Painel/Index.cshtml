@@ -4,17 +4,7 @@
     ViewBag.Title = "Painel";
 }
 
-@*Model.IdUser*@
-
 @HelperLayout.Titulo("Painel do " + Model.Usuario.Pessoa.Nome)
-
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <p>Menu do Usuário</p>
-        @Html.ActionLink("Vender", "Vender", "Venda", new { idUser = User.Identity.GetUserId() }, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Comprar", "Comprar", "Compra", new { idUser = User.Identity.GetUserId() }, new { @class = "btn btn-primary" })
-    </div>
-</div>
 
 @HelperLayout.SubTitulo("Produtos que você está vendendo")
 
@@ -41,7 +31,7 @@
     </div>
 </div>
 
-@HelperLayout.SubTitulo("Produto que você está comprando")
+@HelperLayout.SubTitulo("Produtos que você está comprando")
 
 @*Tabela de Compras*@
 <div class="row">
