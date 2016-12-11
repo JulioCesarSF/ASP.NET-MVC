@@ -3,8 +3,23 @@
 @{
     ViewBag.Title = "Comprar";
 }
+<hr />
+<div class="row">
+    <div class="col-md-4 col-sm-4"></div>
+    @using (Html.BeginForm("BuscarProduto", "Compra", FormMethod.Get))
+    {
+        <div class="col-md-5 col-sm-5">
+            <input type="text" placeholder="Buscar produto" class="form-control" />
+        </div>
 
-@HelperLayout.Titulo("Produtos Disponíveis no Site para Compra")
+        <div class="col-md-1 col-sm-1">
+            @*<input type="submit" value="Buscar" class="btn btn-info btn-sm" />*@
+        </div>
+    }
+    <div class="col-md-2 col-sm-2"></div>
+</div>
+
+<hr />
 
 @Html.Partial("_tabelaProdutosDisponiveis", Model.Negociacoes)
 
@@ -44,7 +59,7 @@
 @section Scripts{
     <script type="text/javascript">
         $().ready(function () {
-
+            console.log("ok"); //it shows this message
             $("#thumb").on('click', function () {
                 $("#btnProposta").click();
             });
