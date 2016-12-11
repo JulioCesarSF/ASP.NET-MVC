@@ -72,9 +72,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Proposta</h4>
             </div>
-            @using (Html.BeginForm("Proposta", "Venda"))
+            @using (Html.BeginForm("Proposta", "Venda", FormMethod.Post, new { @Id="formProposta" }))
             {
                 <input type="hidden" id="Id" name="Id" /> //id da negociacao
+                <input type="hidden" id="Aceite" name="Aceite" />
+                <input type="hidden" id="IdUser" value=@User.Identity.GetUserId() />
                 <div class="modal-body">
                     <div class="form-group">
                         @Html.Label("Valor Original")
@@ -102,11 +104,13 @@
     });
 
     function aceitarProposta() {
-
+        $("#Aceite").val("1");
+        //$("#formProposta").submit();
     }
 
     function recusarProposta() {
-
+        $("#Aceite").val("2");
+        //$("#formProposta").submit();
     }
 
     function setValues(valores) {

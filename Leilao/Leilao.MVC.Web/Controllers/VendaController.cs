@@ -87,6 +87,51 @@ namespace Leilao.MVC.Web.Controllers
 
             return RedirectToAction("Vender", new { idUser = vendedor.IdUser });
         }
+
+        //método responsável pela tomada de decisão do vendedor em aceitar/recusar
+        [HttpPost]
+        public ActionResult Proposta(NegociacaoViewModel model)
+        {
+            if (!ModelState.IsValid || model.Aceite > 2 || model.Aceite < 1)
+            {
+                return RedirectToAction("Index", "Painel", new { idUser = model.IdUser });
+            }
+
+            var negociacao = _unit.NegociacaoRepository.BuscarPorId(model.Id);
+
+            //aceitou
+            if(model.Aceite == 1)
+            {
+                negociacao.Status = "Aguardando Pagamento";
+                negociacao.Tipo = 1;
+
+                _unit.NegociacaoRepository.Alterar(negociacao);
+                _unit.Salvar(); 
+
+                return RedirectToAction("Index", "Painel", new { idUser = negociacao.IdVendedor });
+
+            }
+            //recusou
+            else if(model.Aceite == 2)
+            {
+                negociacao.Status = "Recusado";
+                negociacao.Tipo = 2;
+
+                _unit.NegociacaoRepository.Alterar(negociacao);
+                _unit.Salvar();
+
+                var historico = new Historico()
+                {
+                    IdNegociacao = negociacao.Id
+                };
+
+                _unit.HistoricoRepository.Cadastrar(historico);
+                _unit.Salvar();
+
+                return RedirectToAction("Index", "Painel", new { idUser = negociacao.IdVendedor });
+            }
+            return View();
+        }
         #endregion
 
         #region PRIVATEs
