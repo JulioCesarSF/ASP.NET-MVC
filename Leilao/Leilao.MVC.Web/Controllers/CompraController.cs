@@ -53,7 +53,8 @@ namespace Leilao.MVC.Web.Controllers
             negociacao.IdComprador = comprador.IdUser;
             negociacao.Status = model.Status;
             negociacao.Valor = model.Valor;
-            //negocioes com ID 1 são Vendas em andamento
+            //Data em que foi dada a proposta
+            negociacao.Data = DateTime.Now;
             negociacao.Tipo = 1;
 
             _unit.NegociacaoRepository.Alterar(negociacao);
