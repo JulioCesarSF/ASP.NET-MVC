@@ -34,6 +34,8 @@ namespace Leilao.MVC.Web.Controllers
         #endregion
 
         #region POSTs
+        //método responsável por cadastrar o produto para vender
+        //TODO:alterar o nome para CadastrarProduto
         [HttpPost]
         public ActionResult Vender(ProdutoViewModel model)
         {
@@ -58,6 +60,7 @@ namespace Leilao.MVC.Web.Controllers
             return RedirectToAction("Vender", new { idUser = usuario.IdUser });
         }
 
+        //método responsável por inicia uma negociação
         [HttpPost]
         public ActionResult Negociar(ProdutoViewModel model)
         {
@@ -74,6 +77,8 @@ namespace Leilao.MVC.Web.Controllers
                 Status = "Em Aberto",                
                 Tipo = 1,
                 IdProduto = produto.Id,
+                //Data só pode ser o dia atual, em que está iniciando a negociação
+                Data = DateTime.Now,
                 Produto = produto                                        
             };
 

@@ -11,12 +11,12 @@
         <td>@item.Valor</td>   
         <td>@item.Status</td>       
         <td>
-            @if (item.Status == "Em andamento")
+            @if (item.Status.Equals("Em andamento"))
             {
                 <button onclick="setValues(@item.Id, @item.Produto.Valor, @item.Valor.ToString().Replace(",", "."))" class="btn btn-primary" data-toggle="modal" data-target="#propostaModal">Opções</button>
             }else
             {
-               
+                @: -
             }
         </td>
 
