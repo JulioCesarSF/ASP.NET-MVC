@@ -111,7 +111,7 @@ namespace Leilao.MVC.Web.Controllers
                 GetAuthenticationManager().SignIn(identity);
 
                 //redirecionar para o Painel do Usuário com o idUser no PainelController
-                return RedirectToAction("Index", "User", new { idUser = pessoa.IdUser });
+                return RedirectToAction("Comprar", "Compra", new { idUser = pessoa.IdUser });
             }
 
             foreach (var error in result.Errors)

@@ -14,7 +14,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Proposta de Compra</h4>
+                <h4 class="modal-title">Proposta de Compra</h4>
             </div>
             <div class="modal-body">
                 @using (Html.BeginForm("Comprar", "Compra", FormMethod.Post))
@@ -41,19 +41,23 @@
 </div>
 
 @section scripts{
-    <script>
-    $().ready(function() {
+    <script type="text/javascript">
+        $().ready(function () {
         console.log("ok"); //it shows this message
-        function setFormValues(vals) {
-            $("#Id").val(vals[0]);
-            $("#Produto_Valor").val(vals[1]);
-            $("#Valor").val(vals[1] * 1.10);
-        }
+        
 
         $("#thumb").on('click', function () {
             $("#btnProposta").click();
         });
 
-    });
+        });
+
+        function setFormValues(vals) {
+            var valor = parseFloat(vals[1]);
+            $("#Id").val(vals[0]);
+            $("#Produto_Valor").val(vals[1]);
+            $("#Valor").val(valor - (valor * 0.10));
+            console.log("Valor=" + valor + " Calculo=" + (valor - (valor * 0.10)));
+        }
     </script>
 }

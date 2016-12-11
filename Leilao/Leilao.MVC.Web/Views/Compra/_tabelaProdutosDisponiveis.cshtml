@@ -10,16 +10,15 @@
                     <h4 style="text-align:center">@item.Produto.Nome</h4>
                     <p style="text-align:center">R$ @item.Produto.Valor</p>
                     <p style="text-align:center">
-                        <script>                            
-                          var valores = ["@item.Id", "@item.Produto.Valor"];
+                        <script>
+                            var valores = ["@item.Id", "@item.Produto.Valor"];
                         </script>
-                        <button onclick="setFormValues(valores);" id="btnProposta" name="btnProposta"
-                                class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalComprar">
+                        <button onclick="setFormValues(valores)" id="btnProposta" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalComprar">
                             Eu Quero!
                         </button>
                     </p>
                 </div>
-            </div>            
+            </div>
         </div>
     }
 </div>
