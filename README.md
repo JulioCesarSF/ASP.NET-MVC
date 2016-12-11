@@ -6,3 +6,8 @@
 2. Dominio : Models e DataAccess(para login)
 3. Persistencia: Repositories e UnitOfWork
 4. MVC.Web : Controllers, Views, ViewModels
+
+## Imagens
+
+> Painel com Produtos para Compra
+![painel comprar](https://s28.postimg.org/bl4z095a5/painel_produtos_comprar.png)

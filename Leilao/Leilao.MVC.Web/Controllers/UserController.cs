@@ -141,7 +141,7 @@ namespace Leilao.MVC.Web.Controllers
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             GetAuthenticationManager().SignIn(identity);
             //voltar a para View que tentou acessar
-            return RedirectToAction("Index", "User", new { idUser = identity.GetUserId() });
+            return RedirectToAction("Comprar", "Compra", new { idUser = identity.GetUserId() });
         }
 
         [HttpPost]
