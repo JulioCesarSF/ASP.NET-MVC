@@ -11,9 +11,11 @@ namespace Leilao.MVC.Web.ViewModels
     {
         [Required]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
         [HiddenInput]
         public string ReturnUrl { get; set; }
