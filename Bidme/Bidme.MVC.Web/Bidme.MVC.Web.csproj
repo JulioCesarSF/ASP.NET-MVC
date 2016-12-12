@@ -150,6 +150,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -227,6 +231,7 @@
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\ErroController.cs" />
     <Compile Include="Controllers\PainelController.cs" />
@@ -275,6 +280,10 @@
     <ProjectReference Include="..\Bidme.Persistencia\Bidme.Persistencia.csproj">
       <Project>{9d79f9df-a615-4b79-b18e-5dae1b51ddc3}</Project>
       <Name>Bidme.Persistencia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bidme.Service\Bidme.Service.csproj">
+      <Project>{cc694bd9-08a4-4908-8094-4d331abb5bac}</Project>
+      <Name>Bidme.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
