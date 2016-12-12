@@ -1,38 +1,39 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated && User.Identity.GetUserId() != null)
 {
+
+        <!--Menu do usuário após login -->
+    <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+            <a href="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Site <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("Index", "Painel", new { idUser = User.Identity.GetUserId() })">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Painel
+                    </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="@Url.Action("Vender", "Venda", new { idUser = User.Identity.GetUserId() } )">
+                        <span class="glyphicon glyphicon-star"></span>
+                        Vender
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Comprar", "Compra", new { idUser = User.Identity.GetUserId() })">
+                        <span class="glyphicon glyphicon-fire"></span>
+                        Comprar
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
     using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-        <!--Menu do usuário após login -->
-        <ul class="nav navbar-nav navbar-left">
-            <li class="dropdown">                
-                <a href="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Site <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="@Url.Action("Index", "Painel", new { idUser = User.Identity.GetUserId() })">
-                            <span class="glyphicon glyphicon-home"></span>
-                            Painel                            
-                        </a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <a href="@Url.Action("Vender", "Venda", new { idUser = User.Identity.GetUserId() } )">
-                            <span class="glyphicon glyphicon-star"></span>
-                            Vender                            
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Comprar", "Compra", new { idUser = User.Identity.GetUserId() })">
-                            <span class="glyphicon glyphicon-fire"></span>
-                            Comprar                            
-                        </a>
-                    </li>                    
-                </ul>
-            </li>
-        </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li>
