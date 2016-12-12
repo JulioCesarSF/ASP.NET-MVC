@@ -233,6 +233,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CompraController.cs" />
+    <Compile Include="Controllers\CreditoController.cs" />
     <Compile Include="Controllers\ErroController.cs" />
     <Compile Include="Controllers\PainelController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -241,6 +242,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CreditoViewModel.cs" />
     <Compile Include="ViewModels\HistoricoViewModel.cs" />
     <Compile Include="ViewModels\NegociacaoViewModel.cs" />
     <Compile Include="ViewModels\PainelViewModel.cs" />
@@ -271,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Credito\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bidme.Dominio\Bidme.Dominio.csproj">
