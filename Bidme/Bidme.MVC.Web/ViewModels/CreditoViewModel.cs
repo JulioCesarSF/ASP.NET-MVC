@@ -17,6 +17,8 @@ namespace Bidme.MVC.Web.ViewModels
         #region Compra de créditos
         [Required]
         public string IdUser { get; set; }
+        public string Mensagem { get; set; }
+        public string TipoMensagem { get; set; }
         #endregion
 
         #region Table Credito

@@ -21,7 +21,7 @@ namespace Bidme.MVC.Web.Controllers
 
         #region GETs
         [HttpGet]
-        public ActionResult Resumo()
+        public ActionResult Resumo(CreditoViewModel model)
         {
             string idUser = User.Identity.GetUserId();
             var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == idUser).First();
@@ -30,28 +30,14 @@ namespace Bidme.MVC.Web.Controllers
             int totalCredito = 0;
             if (creditos.Count > 0)
             {
-                totalCredito = creditos.First().Total;
+                totalCredito = creditos.Last().Total;
             }
-            //listar todas as transações de compra de crédito
-            var transacoes = _unit.TransacaoRepository.Listar()
-                .Where(
-                t=>t.Credito.Where(c=>c.IdPessoa == pessoa.Id) != null
-                )
-                .ToList();
-            
-            var model = new CreditoViewModel()
-            {
-                Transacoes = transacoes,
-                Total = totalCredito,
-                IdUser = User.Identity.GetUserId()            
-            };
-            return View(model);
-        }     
+            List<Transacao> transacoes = ListarTransacoesDaPessoa(pessoa);
+            model.Transacoes = transacoes;
+            model.Total = totalCredito;
+            model.IdUser = User.Identity.GetUserId();
 
-        [HttpGet]
-        public ActionResult ComprarCredito()
-        {
-            return View();
+            return View(model);
         }
         #endregion
 
@@ -59,7 +45,54 @@ namespace Bidme.MVC.Web.Controllers
         [HttpPost]
         public ActionResult ComprarCredito(CreditoViewModel model)
         {
-            return View();
+            var comprador = _unit.PessoaRepository.BuscarPor(p => p.IdUser == model.IdUser).First();
+            if (!ModelState.IsValid)
+            {
+                model.Mensagem = "Compra não realizada. Tente novamente!";
+                model.TipoMensagem = "alert alert-dismissable alert-danger";
+                model.Transacoes = ListarTransacoesDaPessoa(comprador);
+                return RedirectToAction("Resumo", "Credito", model);
+            }
+            //setup transacao de compra de crédito
+            var t = new Transacao()
+            {
+                Data = model.Data,
+                Valor = model.Valor
+            };
+
+            var creditos = ListarCreditos(comprador.Id);
+
+            int totalDiamantes = 0;
+            if(creditos.Count > 0)
+            {
+                totalDiamantes = creditos.Last().Total;
+            }
+
+            var c = new Credito()
+            {
+                Total = totalDiamantes + (int)t.Valor,
+                IdPessoa = comprador.Id
+            };
+
+            try
+            {
+                _unit.TransacaoRepository.Cadastrar(t);
+                _unit.Salvar();
+                _unit.CreditoRepository.Cadastrar(c);
+                _unit.Salvar();
+            }
+            catch (Exception e)
+            {
+                model.Mensagem = "Compra não realizada. Tente novamente! " + e.InnerException.ToString();
+                model.TipoMensagem = "alert alert-dismissable alert-danger";
+                model.Transacoes = ListarTransacoesDaPessoa(comprador);
+                return RedirectToAction("Resumo", "Credito", model);
+            }
+
+            model.Mensagem = "Compra realizada, boas compras!";
+            model.TipoMensagem = "alert alert-dismissable alert-success";
+            model.Transacoes = ListarTransacoesDaPessoa(comprador);
+            return RedirectToAction("Resumo", "Credito", model);
         }
         #endregion
 
@@ -67,6 +100,16 @@ namespace Bidme.MVC.Web.Controllers
         private ICollection<Credito> ListarCreditos(int id)
         {
             return _unit.CreditoRepository.BuscarPor(c => c.IdPessoa == id);
+        }
+
+        private List<Transacao> ListarTransacoesDaPessoa(Pessoa pessoa)
+        {
+            //listar todas as transações de compra de crédito
+            return _unit.TransacaoRepository.Listar()
+                .Where(
+                t => t.Credito.Where(c => c.IdPessoa == pessoa.Id) != null
+                )
+                .ToList();
         }
         #endregion
     }
