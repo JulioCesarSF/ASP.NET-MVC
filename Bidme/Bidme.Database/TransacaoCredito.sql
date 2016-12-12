@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[TransacaoCredito]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Data] DATETIME NOT NULL, 
-    [Valor] DECIMAL NOT NULL, 
-    [Quantidade] INT NOT NULL
+    [IdCredito] INT NOT NULL, 
+    [IdTransacao] INT NOT NULL, 
+    CONSTRAINT [FK_TransacaoCredito_Credito] FOREIGN KEY ([IdCredito]) REFERENCES [Credito]([Id]),
+	CONSTRAINT [FK_TransacaoCreidto_Transacao] FOREIGN KEY([IdTransacao]) REFERENCES [Transacao]([Id])
 )

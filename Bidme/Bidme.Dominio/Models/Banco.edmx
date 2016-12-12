@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Bidme.Database.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Credito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Total" Type="int" Nullable="false" />
+          <Property Name="IdPessoa" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Historico">
           <Key>
             <PropertyRef Name="Id" />
@@ -50,6 +58,36 @@
           <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="IdVendedor" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Transacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Valor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TransacaoCredito">
+          <Key>
+            <PropertyRef Name="IdCredito" />
+            <PropertyRef Name="IdTransacao" />
+          </Key>
+          <Property Name="IdCredito" Type="int" Nullable="false" />
+          <Property Name="IdTransacao" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Credito_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Credito" Type="Self.Credito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credito">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Historico_Negociacao">
           <End Role="Negociacao" Type="Self.Negociacao" Multiplicity="1" />
           <End Role="Historico" Type="Self.Historico" Multiplicity="*" />
@@ -86,11 +124,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TransacaoCredito_Credito">
+          <End Role="Credito" Type="Self.Credito" Multiplicity="1" />
+          <End Role="TransacaoCredito" Type="Self.TransacaoCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Credito">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransacaoCredito">
+              <PropertyRef Name="IdCredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransacaoCreidto_Transacao">
+          <End Role="Transacao" Type="Self.Transacao" Multiplicity="1" />
+          <End Role="TransacaoCredito" Type="Self.TransacaoCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transacao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransacaoCredito">
+              <PropertyRef Name="IdTransacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BidmeDatabaseStoreContainer">
+          <EntitySet Name="Credito" EntityType="Self.Credito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Historico" EntityType="Self.Historico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Negociacao" EntityType="Self.Negociacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transacao" EntityType="Self.Transacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransacaoCredito" EntityType="Self.TransacaoCredito" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TransacaoCredito].[IdCredito] AS [IdCredito], 
+    [TransacaoCredito].[IdTransacao] AS [IdTransacao]
+    FROM [dbo].[TransacaoCredito] AS [TransacaoCredito]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Credito_Pessoa" Association="Self.FK_Credito_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Credito" EntitySet="Credito" />
+          </AssociationSet>
           <AssociationSet Name="FK_Historico_Negociacao" Association="Self.FK_Historico_Negociacao">
             <End Role="Negociacao" EntitySet="Negociacao" />
             <End Role="Historico" EntitySet="Historico" />
@@ -102,6 +176,14 @@
           <AssociationSet Name="FK_Produto_Pessoa" Association="Self.FK_Produto_Pessoa">
             <End Role="Pessoa" EntitySet="Pessoa" />
             <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransacaoCredito_Credito" Association="Self.FK_TransacaoCredito_Credito">
+            <End Role="Credito" EntitySet="Credito" />
+            <End Role="TransacaoCredito" EntitySet="TransacaoCredito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransacaoCreidto_Transacao" Association="Self.FK_TransacaoCreidto_Transacao">
+            <End Role="Transacao" EntitySet="Transacao" />
+            <End Role="TransacaoCredito" EntitySet="TransacaoCredito" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -145,6 +227,7 @@
           <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdUser" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Produto" Relationship="Self.FK_Produto_Pessoa" FromRole="Pessoa" ToRole="Produto" />
+          <NavigationProperty Name="Credito" Relationship="Bidme.Database.FK_Credito_Pessoa" FromRole="Pessoa" ToRole="Credito" />
         </EntityType>
         <EntityType Name="Produto">
           <Key>
@@ -212,8 +295,53 @@
             <End Role="Pessoa" EntitySet="Pessoa" />
             <End Role="Produto" EntitySet="Produto" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="Credito" EntityType="Bidme.Database.Credito" />
+          <EntitySet Name="Transacao" EntityType="Bidme.Database.Transacao" />
+          <AssociationSet Name="FK_Credito_Pessoa" Association="Bidme.Database.FK_Credito_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Credito" EntitySet="Credito" />
+          </AssociationSet>
+          <AssociationSet Name="TransacaoCredito" Association="Bidme.Database.TransacaoCredito">
+            <End Role="Credito" EntitySet="Credito" />
+            <End Role="Transacao" EntitySet="Transacao" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Credito">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Total" Type="Int32" Nullable="false" />
+          <Property Name="IdPessoa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pessoa" Relationship="Bidme.Database.FK_Credito_Pessoa" FromRole="Credito" ToRole="Pessoa" />
+          <NavigationProperty Name="Transacao" Relationship="Bidme.Database.TransacaoCredito" FromRole="Credito" ToRole="Transacao" />
+        </EntityType>
+        <EntityType Name="Transacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Valor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Credito" Relationship="Bidme.Database.TransacaoCredito" FromRole="Transacao" ToRole="Credito" />
+        </EntityType>
+        <Association Name="FK_Credito_Pessoa">
+          <End Type="Bidme.Database.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Bidme.Database.Credito" Role="Credito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Credito">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TransacaoCredito">
+          <End Type="Bidme.Database.Credito" Role="Credito" Multiplicity="*" />
+          <End Type="Bidme.Database.Transacao" Role="Transacao" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -268,6 +396,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Credito">
+            <EntityTypeMapping TypeName="Bidme.Database.Credito">
+              <MappingFragment StoreEntitySet="Credito">
+                <ScalarProperty Name="IdPessoa" ColumnName="IdPessoa" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transacao">
+            <EntityTypeMapping TypeName="Bidme.Database.Transacao">
+              <MappingFragment StoreEntitySet="Transacao">
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TransacaoCredito" TypeName="Bidme.Database.TransacaoCredito" StoreEntitySet="TransacaoCredito">
+            <EndProperty Name="Transacao">
+              <ScalarProperty Name="Id" ColumnName="IdTransacao" />
+            </EndProperty>
+            <EndProperty Name="Credito">
+              <ScalarProperty Name="Id" ColumnName="IdCredito" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

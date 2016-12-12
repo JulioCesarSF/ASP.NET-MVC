@@ -12,28 +12,20 @@ namespace Bidme.Dominio.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Pessoa
+    public partial class Credito
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Pessoa()
+        public Credito()
         {
-            this.Produto = new HashSet<Produto>();
-            this.Credito = new HashSet<Credito>();
+            this.Transacao = new HashSet<Transacao>();
         }
     
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
-        public string Cep { get; set; }
-        public int Numero { get; set; }
-        public string Complemento { get; set; }
-        public System.DateTime DataNascimento { get; set; }
-        public string Telefone { get; set; }
-        public string IdUser { get; set; }
+        public int Total { get; set; }
+        public int IdPessoa { get; set; }
     
+        public virtual Pessoa Pessoa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Produto> Produto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Credito> Credito { get; set; }
+        public virtual ICollection<Transacao> Transacao { get; set; }
     }
 }

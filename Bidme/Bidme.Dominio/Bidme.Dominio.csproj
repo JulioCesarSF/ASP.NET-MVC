@@ -75,6 +75,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Banco.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Credito.cs">
+      <DependentUpon>Banco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Historico.cs">
       <DependentUpon>Banco.tt</DependentUpon>
     </Compile>
@@ -85,6 +88,9 @@
       <DependentUpon>Banco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Produto.cs">
+      <DependentUpon>Banco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Transacao.cs">
       <DependentUpon>Banco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />

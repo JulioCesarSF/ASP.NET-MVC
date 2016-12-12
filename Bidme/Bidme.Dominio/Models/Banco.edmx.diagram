@@ -12,7 +12,11 @@
         <AssociationConnector Association="Bidme.Database.FK_Historico_Negociacao" ManuallyRouted="false" />
         <AssociationConnector Association="Bidme.Database.FK_Negociacao_Produto" ManuallyRouted="false" />
         <AssociationConnector Association="Bidme.Database.FK_Produto_Pessoa" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="Bidme.Database.Credito" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="Bidme.Database.Transacao" Width="1.5" PointX="3.125" PointY="5.25" />
+        <AssociationConnector Association="Bidme.Database.FK_Credito_Pessoa" />
+        <AssociationConnector Association="Bidme.Database.TransacaoCredito" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
