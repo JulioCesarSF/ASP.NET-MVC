@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[Credito]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)

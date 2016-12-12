@@ -16,6 +16,9 @@ namespace Bidme.Persistencia.Repositories
         protected DbSet<T> _dbSet;
         #endregion
 
+        //add support para transações
+        //https://msdn.microsoft.com/en-us/library/dn456843(v=vs.113).aspx
+
         #region METHODs
         public GenericRepository(BidmeContext context)
         {
@@ -24,12 +27,12 @@ namespace Bidme.Persistencia.Repositories
         }
 
         public void Alterar(T entidade)
-        {
+        {            
             _context.Entry(entidade).State = EntityState.Modified;
         }
 
         public ICollection<T> BuscarPor(Expression<Func<T, bool>> filtro)
-        {
+        {            
             return _dbSet.Where(filtro).ToList();
         }
 

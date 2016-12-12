@@ -63,5 +63,7 @@
     <Build Include="Produto.sql" />
     <Build Include="Negociacao.sql" />
     <Build Include="Historico.sql" />
+    <Build Include="Credito.sql" />
+    <Build Include="TransacaoCredito.sql" />
   </ItemGroup>
 </Project>
