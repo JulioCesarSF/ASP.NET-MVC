@@ -66,4 +66,7 @@
     <Build Include="Credito.sql" />
     <Build Include="TransacaoCredito.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Bidme.Database.refactorlog" />
+  </ItemGroup>
 </Project>
