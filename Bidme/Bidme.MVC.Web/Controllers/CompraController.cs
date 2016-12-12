@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Bidme.MVC.Web.Controllers
 {
@@ -21,7 +22,15 @@ namespace Bidme.MVC.Web.Controllers
         {
             if (idUser == null)
             {
-                return RedirectToAction("Index", "Painel");
+                string userId = User.Identity.GetUserId();
+                if(userId != null)
+                {
+                    idUser = userId;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Painel");
+                }                
             }
             ICollection<Negociacao> negociacoes = ListarNegociacoes(idUser);
             var model = new NegociacaoViewModel()

@@ -38,7 +38,7 @@ namespace Bidme.MVC.Web.Controllers
                         }
                     }                   
                 };
-                return View(model);
+                return RedirectToAction("Comprar", "Compra", model);
             }            
             return RedirectToAction("Login", "User");
         }

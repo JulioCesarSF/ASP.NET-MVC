@@ -33,7 +33,15 @@ namespace Bidme.MVC.Web.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            string idUser = User.Identity.GetUserId();
+            if (idUser == null || idUser == "" || idUser.Equals(""))
+            {
+                return View();
+            }                
+            else
+            {
+                return RedirectToAction("Compra", "Comprar");
+            }                
         }
 
         [HttpGet]
@@ -141,7 +149,8 @@ namespace Bidme.MVC.Web.Controllers
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             GetAuthenticationManager().SignIn(identity);
             //voltar a para View que tentou acessar
-            return RedirectToAction("Comprar", "Compra", new { idUser = identity.GetUserId() });
+            string userId = identity.GetUserId();
+            return RedirectToAction("Comprar", "Compra", new { idUser = userId });
         }
 
         [HttpPost]
