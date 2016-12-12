@@ -4,70 +4,77 @@
     ViewBag.Title = "Vender";
 }
 
-@HelperLayout.Titulo("Vender Produto")
+<br />
 
-@HelperLayout.SubTitulo("Cadastrar Produto para venda")
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 div class="panel-title">Venda de Produtos</h3>
+    </div>
+    <div class="panel-body" style="align-content: center;">
+        @HelperLayout.SubTitulo("Cadastrar Novo Produto")
 
-@HelperLayout.MensagemCustomizada(Model.TipoMensagem, Model.Mensagem)
+        <div class="row">
+            @using (Html.BeginForm("Vender", "Venda"))
+            {
+                <div class="col-md-4 col-sm-4">
+                    @Html.HiddenFor(p => p.IdUser, new { @value = User.Identity.GetUserId() })
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.Nome)
+                        @Html.TextBoxFor(p => p.Nome, new { @class = "form-control" })
+                    </div>
 
-<div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.Descricao)
+                        @Html.TextAreaFor(p => p.Descricao, new { @class = "form-control" })
+                    </div>
+                </div>
 
-    @Html.ValidationSummary()
+                <div class="col-md-4 col-sm-4">
 
-    @using (Html.BeginForm("Vender", "Venda"))
-    {
-        <div class="col-md-4 col-sm-4">
-            @Html.HiddenFor(p=>p.IdUser, new { @value=User.Identity.GetUserId()})
-            <div class="form-group">
-                @Html.LabelFor(p => p.Nome)
-                @Html.TextBoxFor(p => p.Nome, new { @class = "form-control" })
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.Imagem)
+                        @Html.TextBoxFor(p => p.Imagem, new { @class = "form-control" })
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(p => p.Descricao)
-                @Html.TextAreaFor(p => p.Descricao, new { @class = "form-control" })
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(p => p.Valor)
+                        @Html.TextBoxFor(p => p.Valor, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Cadastrar" />
+                        <input type="reset" class="btn btn-danger" value="Limpar" />
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">                    
+                    @HelperLayout.MensagemCustomizada(Model.TipoMensagem, Model.Mensagem)
+                    @Html.ValidationSummary()
+                </div>
+            }
         </div>
 
-        <div class="col-md-4 col-sm-4">
+        @HelperLayout.SubTitulo("Vender um Produto já cadastrado")
 
-            <div class="form-group">
-                @Html.LabelFor(p => p.Imagem)
-                @Html.TextBoxFor(p => p.Imagem, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(p => p.Valor)
-                @Html.TextBoxFor(p => p.Valor, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group">
-                <input type="submit" class="btn btn-success" value="Cadastrar" />
-                <input type="reset" class="btn btn-danger" value="Limpar" />
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @Html.Partial("_tabelaProdutosCadastrados", Model.Produtos)
+                    </tbody>
+                </table>
             </div>
         </div>
-    }
-</div>
-
-@HelperLayout.SubTitulo("Vender um Produto já cadastrado")
-
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Imagem</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @Html.Partial("_tabelaProdutosCadastrados", Model.Produtos)
-            </tbody>
-        </table>
     </div>
 </div>
 
