@@ -264,6 +264,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Erro\Default.cshtml" />
     <Content Include="Views\Erro\Erro404.cshtml" />
+    <Content Include="Views\Credito\Resumo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -273,7 +274,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Credito\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bidme.Dominio\Bidme.Dominio.csproj">

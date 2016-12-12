@@ -16,6 +16,12 @@ namespace Bidme.MVC.Web.Controllers
 
         #region GETs
         [HttpGet]
+        public ActionResult Resumo()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult ComprarCredito()
         {
             return View();
