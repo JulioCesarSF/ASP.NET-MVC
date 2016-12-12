@@ -3,8 +3,11 @@ using Bidme.Persistencia.UnitsOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Diagnostics;
 
 namespace Bidme.MVC.Web.Controllers
 {
@@ -19,6 +22,9 @@ namespace Bidme.MVC.Web.Controllers
         [HttpGet]
         public ActionResult Resumo()
         {
+            var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == User.Identity.GetUserId());         
+            
+            //Debug.WriteLine("idUser pelo controller: " + idUser);
             return View();
         }
 

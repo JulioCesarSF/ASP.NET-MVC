@@ -93,7 +93,7 @@ namespace Bidme.MVC.Web.Controllers
 
                 //cadastrar a Pessoa no banco
                 var pessoa = new Pessoa()
-                {
+                {                    
                     Nome = model.Pessoa.Nome,
                     Cpf = model.Pessoa.Cpf,
                     Cep = model.Pessoa.Cep,
