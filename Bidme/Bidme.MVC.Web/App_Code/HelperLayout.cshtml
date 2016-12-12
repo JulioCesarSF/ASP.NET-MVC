@@ -41,22 +41,33 @@
 }
 
 @*
-    Helper para display de mensagens com formatação bootstrap(alert)
-author Júlio*@
+        Helper para display de mensagens com formatação bootstrap(alert)
+    author Júlio*@
 @helper MensagemCustomizada(string tipoMensagem, string mensagem)
-{ 
-<div class="@tipoMensagem">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    @if (tipoMensagem.Equals("alert alert-dismissible alert-warning"))
-    {
-        <h4>Ops!</h4>
-    }else if(tipoMensagem.Equals("alert alert-dismissible alert-success"))
-    {
-        <h4>Sucesso!</h4>
-    }else
-    {
-        <h4>Informações</h4>
-    }
-    <p>@mensagem</p>
-</div>    
+{
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <div class="@tipoMensagem">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+            @if(tipoMensagem == null || tipoMensagem == "")
+            {
+
+            }
+            else if (tipoMensagem.Equals("alert alert-dismissible alert-warning"))
+            {
+                <h4>Ops!</h4>
+            }
+            else if (tipoMensagem.Equals("alert alert-dismissible alert-success"))
+            {
+                <h4>Sucesso!</h4>
+            }
+            else
+            {
+                <h4>Informações</h4>
+            }
+            <p>@mensagem</p>
+        </div>
+    </div>
+</div>
 }

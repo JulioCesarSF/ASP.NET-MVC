@@ -18,7 +18,7 @@ namespace Bidme.MVC.Web.Controllers
 
         #region GETs
         [HttpGet]
-        public ActionResult Vender(string idUser)
+        public ActionResult Vender(string idUser, string tipoMensagem, string mensagem)
         {
             if(idUser == null)
             {
@@ -27,7 +27,9 @@ namespace Bidme.MVC.Web.Controllers
             var vendedor = _unit.PessoaRepository.BuscarPor(p => p.IdUser == idUser).First();            
             var model = new ProdutoViewModel()
             {
-                Produtos = ListarProdutos(vendedor.Id)
+                Produtos = ListarProdutos(vendedor.Id),
+                TipoMensagem = tipoMensagem,
+                Mensagem = mensagem                
             };
             return View(model);
         }
@@ -39,9 +41,11 @@ namespace Bidme.MVC.Web.Controllers
         [HttpPost]
         public ActionResult Vender(ProdutoViewModel model)
         {
+            var vendedor = _unit.PessoaRepository.BuscarPor(p => p.IdUser == model.IdUser).First();
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Vender", new { idUser = model.IdUser });
+                model.Produtos = ListarProdutos(vendedor.Id);
+                return View(model);
             }
 
             var usuario = _unit.PessoaRepository.BuscarPor(u=>u.IdUser == model.IdUser).First();
@@ -54,11 +58,27 @@ namespace Bidme.MVC.Web.Controllers
                 Imagem = model.Imagem                           
             };
 
-            _unit.ProdutoRepository.Cadastrar(produto);
-            _unit.Salvar();
+            try
+            {
+                _unit.ProdutoRepository.Cadastrar(produto);
+                _unit.Salvar();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Vender",
+                    new
+                    {
+                        idUser = model.IdUser,
+                        tipoMensagem = "alert alert-dismissible alert-warning",
+                        mensagem = "Produto NÃO cadastrado. " + e.Message
+                    });
+            }            
 
-            return RedirectToAction("Vender", new { idUser = usuario.IdUser });
-        }
+            return RedirectToAction("Vender", 
+                new { idUser = usuario.IdUser,
+                    tipoMensagem = "alert alert-dismissible alert-success",
+                    mensagem = "Produto Cadastrado." });
+            }
 
         //método responsável por inicia uma negociação
         [HttpPost]
