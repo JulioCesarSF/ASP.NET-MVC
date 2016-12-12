@@ -266,6 +266,7 @@
     <Content Include="Views\Erro\Default.cshtml" />
     <Content Include="Views\Erro\Erro404.cshtml" />
     <Content Include="Views\Credito\Resumo.cshtml" />
+    <Content Include="Views\Credito\_creditosComprados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

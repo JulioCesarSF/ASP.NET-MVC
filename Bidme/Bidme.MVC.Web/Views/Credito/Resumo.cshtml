@@ -1,9 +1,70 @@
-﻿
+﻿@model Bidme.MVC.Web.ViewModels.CreditoViewModel
 @{
     ViewBag.Title = "Resumo";
 }
 
 @HelperLayout.Titulo("Créditos")
 
+<br />
+<div class="row">
+    <div class="col-md-4 col-sm-4"></div>
+    <div class="col-md-4 col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 div class="panel-title">Comprar créditos</h3>
+            </div>
 
+            @using (Html.BeginForm())
+            {
+                <div class="panel-body">
 
+                    <p style="text-align:center">R$ 1,00 = 1 x <img src="~/Content/Imagens/diamante.png" alt="diamante" style="min-height:50px;height:50px;"/></p>
+
+                    @Html.HiddenFor(c => c.Data, new { @Value = DateTime.Now })
+                    @Html.HiddenFor(c => c.IdUser, new { @Value = Model.IdUser })
+                    <div class="form-group">
+                        @Html.LabelFor(c => c.Valor)                        
+                        @Html.TextBoxFor(c => c.Valor,
+                       new {
+                           @class = "form-control",
+                           @type = "number",
+                           @step = "1",
+                           @min = "10",
+                           @max = "1000",
+                           @Value = "25"                                                 
+                       })
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <div class="form-group" style="text-align:right;">
+                        <input type="submit" value="Comprar" class="btn btn-success" />
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4"></div>
+</div>
+
+<br />
+
+@HelperLayout.SubTitulo("Compras realizadas anteriormente de crédito")
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Número do Pedido</td>
+                    <td>Data do Pedido</td>
+                    <td>Valor do Pedido R$</td>
+                </tr>
+            </thead>
+            <tbody id="tabelaCreditoComprados">
+                @Html.Partial("_creditosComprados", Model.Transacoes)
+            </tbody>
+        </table>
+    </div>
+</div>

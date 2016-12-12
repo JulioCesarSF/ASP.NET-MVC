@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Diagnostics;
+using Bidme.Dominio.Models;
 
 namespace Bidme.MVC.Web.Controllers
 {
@@ -22,11 +23,30 @@ namespace Bidme.MVC.Web.Controllers
         [HttpGet]
         public ActionResult Resumo()
         {
-            var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == User.Identity.GetUserId());         
+            string idUser = User.Identity.GetUserId();
+            var pessoa = _unit.PessoaRepository.BuscarPor(p => p.IdUser == idUser).First();
+            //lista de histórico de crédito
+            var creditos = ListarCreditos(pessoa.Id);
+            int totalCredito = 0;
+            if (creditos.Count > 0)
+            {
+                totalCredito = creditos.First().Total;
+            }
+            //listar todas as transações de compra de crédito
+            var transacoes = _unit.TransacaoRepository.Listar()
+                .Where(
+                t=>t.Credito.Where(c=>c.IdPessoa == pessoa.Id) != null
+                )
+                .ToList();
             
-            //Debug.WriteLine("idUser pelo controller: " + idUser);
-            return View();
-        }
+            var model = new CreditoViewModel()
+            {
+                Transacoes = transacoes,
+                Total = totalCredito,
+                IdUser = User.Identity.GetUserId()            
+            };
+            return View(model);
+        }     
 
         [HttpGet]
         public ActionResult ComprarCredito()
@@ -40,6 +60,13 @@ namespace Bidme.MVC.Web.Controllers
         public ActionResult ComprarCredito(CreditoViewModel model)
         {
             return View();
+        }
+        #endregion
+
+        #region PRIVATEs
+        private ICollection<Credito> ListarCreditos(int id)
+        {
+            return _unit.CreditoRepository.BuscarPor(c => c.IdPessoa == id);
         }
         #endregion
     }

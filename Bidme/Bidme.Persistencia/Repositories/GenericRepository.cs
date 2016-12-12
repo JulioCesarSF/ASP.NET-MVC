@@ -15,7 +15,7 @@ namespace Bidme.Persistencia.Repositories
         protected BidmeContext _context;
         protected DbSet<T> _dbSet;
         #endregion
-
+        
         //add support para transações
         //https://msdn.microsoft.com/en-us/library/dn456843(v=vs.113).aspx
 
