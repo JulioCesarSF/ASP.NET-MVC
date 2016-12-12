@@ -1,5 +1,6 @@
 ﻿using Bidme.Dominio.Models;
 using Bidme.Persistencia.UnitsOfWork;
+using Bidme.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,23 +21,66 @@ namespace Bidme.Service.Controllers
 
         //GET api/produto
         //listar os produtos cadastrados
-        public ICollection<Produto> Get()
+        public ICollection<ProdutoDTO> Get()
         {
-            return _unit.ProdutoRepository.Listar();
+            //lista para return
+            ICollection<ProdutoDTO> lista = new List<ProdutoDTO>();
+            //lista do banco
+            var produtos = _unit.ProdutoRepository.Listar();
+
+            foreach (var item in produtos)
+            {
+                lista.Add(new ProdutoDTO()
+                {
+                    Id = item.Id,
+                    Nome = item.Nome,
+                    Descricao = item.Descricao,
+                    Valor = item.Valor,
+                    Imagem = item.Imagem,
+                    IdVendedor = item.IdVendedor
+                });
+            }
+
+            return lista;
         }
 
         //GET api/produto/id
         //procurar um produto em especifico
-        public Produto Get(int id)
+        public ProdutoDTO Get(int id)
         {
-            return _unit.ProdutoRepository.BuscarPorId(id);
+            var produto = _unit.ProdutoRepository.BuscarPorId(id);
+            var p = new ProdutoDTO()
+            {
+                Id = produto.Id,
+                Nome = produto.Nome,
+                Descricao = produto.Descricao,
+                Valor = produto.Valor,
+                Imagem = produto.Imagem,
+                IdVendedor = produto.IdVendedor
+            };
+            return p;
         }
 
         //GET api/produto/idUser
         //procurar produtos associacos a um usuario com login
-        public ICollection<Produto> Get(string idUser)
+        public ICollection<ProdutoDTO> Get(string idUser)
         {
-            return _unit.ProdutoRepository.BuscarPor(p => p.Pessoa.IdUser == idUser);
+            //lista para return
+            ICollection<ProdutoDTO> lista = new List<ProdutoDTO>();
+            var produtos = _unit.ProdutoRepository.BuscarPor(p => p.Pessoa.IdUser == idUser);
+
+            foreach (var item in produtos)
+            {
+                lista.Add(new ProdutoDTO()
+                {
+                    Id = item.Id,
+                    Nome = item.Nome,
+                    Descricao = item.Descricao,
+                    Valor = item.Valor,
+                    Imagem = item.Imagem                    
+                });
+            }
+            return lista;
         }
  
         //DELETE api/produto/id
@@ -49,14 +93,32 @@ namespace Bidme.Service.Controllers
 
         //PUT api/produto/
         //atualizar/alterar um produto
-        public IHttpActionResult Put(int id, Produto produto)
+        public IHttpActionResult Put(int id, ProdutoDTO produtoDTO)
         {
             if (ModelState.IsValid)
-            {                            
-                produto.Id = id;
-                _unit.ProdutoRepository.Alterar(produto);
-                _unit.Salvar();
-                return Ok(produto);
+            {
+                var produto = new Produto()
+                {
+                    Id = produtoDTO.Id,
+                    IdVendedor = produtoDTO.IdVendedor,
+                    Nome = produtoDTO.Nome,
+                    Descricao = produtoDTO.Descricao,
+                    Valor = produtoDTO.Valor,
+                    Imagem = produtoDTO.Imagem
+                };
+
+                try
+                {
+                    _unit.ProdutoRepository.Alterar(produto);
+                    _unit.Salvar();
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("ERROR", e.InnerException.ToString());
+                    return BadRequest(ModelState); 
+                }
+                
+                return Ok(produtoDTO);
             }
             else
             {
@@ -66,21 +128,30 @@ namespace Bidme.Service.Controllers
 
         //POST api/produto/ObjetoProduto
         //cadastrar um novo produto
-        public IHttpActionResult Post(Produto produto)
+        public IHttpActionResult Post(ProdutoDTO produtoDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             } 
             
-            if(produto.IdVendedor == 0)
+            if(produtoDTO.IdVendedor == 0)
             {
                 ModelState.AddModelError("ERROR", "Faltou o IdVendedor");
                 return BadRequest(ModelState);
-            }           
+            }
+
+            var produto = new Produto()
+            {
+                IdVendedor = produtoDTO.IdVendedor,
+                Nome = produtoDTO.Nome,
+                Descricao = produtoDTO.Descricao,
+                Valor = produtoDTO.Valor,
+                Imagem = produtoDTO.Imagem
+            };
 
             try
-            {
+            {               
                 _unit.ProdutoRepository.Cadastrar(produto);
                 _unit.Salvar();
             }
@@ -92,7 +163,7 @@ namespace Bidme.Service.Controllers
 
             //gerar um link para retornar da api com o produto cadastrado
             var uri = Url.Link("DefaultApi", new { id = produto.Id });
-            return Created<Produto>(new Uri(uri), produto);
+            return Created<ProdutoDTO>(new Uri(uri), produtoDTO);
         }
     }
 }
