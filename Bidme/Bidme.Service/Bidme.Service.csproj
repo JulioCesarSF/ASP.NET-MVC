@@ -154,8 +154,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\NegociacaoController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTOs\NegociacaoDTO.cs" />
     <Compile Include="DTOs\ProdutoDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -176,6 +178,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Negociacao\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
