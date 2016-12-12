@@ -156,6 +156,8 @@
   <ItemGroup>
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTOs\ProdutoDTO.cs" />
+    <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
