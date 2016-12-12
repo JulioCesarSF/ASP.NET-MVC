@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace Bidme.Dominio.Models
 {
     public class User : IdentityUser
-    {
+    {      
     }
 }

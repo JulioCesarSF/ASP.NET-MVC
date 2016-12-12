@@ -82,11 +82,16 @@ namespace Bidme.MVC.Web.Controllers
 
         //método responsável por inicia uma negociação
         [HttpPost]
-        public ActionResult Negociar(ProdutoViewModel model)
+        public ActionResult Negociar(NegociacaoViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Vender", new { idUser = model.IdUser });
+                return RedirectToAction("Vender", 
+                    new {
+                        idUser = model.IdUser,
+                    tipoMensagem = "alert alert-dismissible alert-warning",
+                    mensagem = "Produto NÃO colocado para venda."
+                });
             }
             var vendedor = _unit.PessoaRepository.BuscarPor(p => p.IdUser == model.IdUser).First();
             var produto = _unit.ProdutoRepository.BuscarPorId(model.Id);
@@ -102,10 +107,28 @@ namespace Bidme.MVC.Web.Controllers
                 Produto = produto                                        
             };
 
-            _unit.NegociacaoRepository.Cadastrar(negociacao);
-            _unit.Salvar();
+            try
+            {
+                _unit.NegociacaoRepository.Cadastrar(negociacao);
+                _unit.Salvar();
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Vender",
+                    new
+                    {
+                        idUser = model.IdUser,
+                        tipoMensagem = "alert alert-dismissible alert-warning",
+                        mensagem = "Produto NÃO colocado para venda." + e.Message
+                    });
+            }
 
-            return RedirectToAction("Vender", new { idUser = vendedor.IdUser });
+            return RedirectToAction("Vender", new
+            {
+                idUser = vendedor.IdUser,
+                tipoMensagem = "alert alert-dismissible alert-success",
+                mensagem = "Produto colocado para venda."
+            });
         }
 
         //método responsável pela tomada de decisão do vendedor em aceitar/recusar
