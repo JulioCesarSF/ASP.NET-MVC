@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated && User.Identity.GetUserId() != null)
 {
-
         <!--Menu do usuário após login -->
     <ul class="nav navbar-nav navbar-left">
         <li class="dropdown">
@@ -38,6 +37,11 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Painel", new { idUser = User.Identity.GetUserId() }, htmlAttributes: new { title = "Painel" })
+            </li>
+            <li>
+                <a href="@Url.Action("Resumo", "Credito", new { idUser = User.Identity.GetUserId() }, null)">
+                <img src="~/Content/Imagens/diamante.png" alt="diamantes" style="min-height:20px;height:20px;"/>
+                Créditos</a>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>

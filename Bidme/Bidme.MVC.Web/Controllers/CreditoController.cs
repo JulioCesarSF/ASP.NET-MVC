@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Bidme.MVC.Web.Controllers
 {
+    [Authorize]
     public class CreditoController : Controller
     {
         #region FIELDs
