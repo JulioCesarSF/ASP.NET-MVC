@@ -18,8 +18,8 @@
 > Painel de Créditos
 ![painel Credito](https://s24.postimg.org/8zz9dxywl/painel_credito_resumo.png)
 
-> Painel para inicar uma Venda e Cadastro de Produto
-![painel vender](https://s30.postimg.org/ovyunj1kx/painel_venda_cadastro_produtos.png)
+> Painel para iniciar uma Venda e Cadastro de Produto
+![painel vender](https://s23.postimg.org/cg55sv5gr/painel_venda_cadastro_produtos.png)
 
 > Painel com Produtos para Compra
 ![painel comprar](https://s28.postimg.org/z4fsj56xp/painel_produtos_comprar.png)

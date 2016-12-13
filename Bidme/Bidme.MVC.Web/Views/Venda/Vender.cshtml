@@ -11,7 +11,7 @@
         <h3 div class="panel-title">Venda de Produtos</h3>
     </div>
     <div class="panel-body" style="align-content: center;">
-        @HelperLayout.SubTitulo("Cadastrar Novo Produto")
+        <div class="panel-title-subtitle" style="font-weight:bold; padding: 20px; margin-bottom:10px; background-color:Highlight; border-radius: 5px;">Cadastrar Novo Produto</div>
 
         <div class="row">
             @using (Html.BeginForm("CadastrarProduto", "Venda"))
@@ -54,11 +54,11 @@
             }
         </div>
 
-        @HelperLayout.SubTitulo("Vender um Produto já cadastrado")
+        <div class="panel-title-subtitle" style="font-weight:bold; padding: 20px; margin-bottom:10px; background-color:Highlight; border-radius: 5px;">Produtos cadastrados para venda</div>
 
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Id</th>
