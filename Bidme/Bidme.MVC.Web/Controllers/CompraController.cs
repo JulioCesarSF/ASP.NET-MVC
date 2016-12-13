@@ -79,6 +79,12 @@ namespace Bidme.MVC.Web.Controllers
         [HttpPost]
         public ActionResult Comprar(NegociacaoViewModel model)
         {
+            //verificar créditos
+            //subtrair crédito do total atual
+            //calcular valor de acordo com a quantidade de créditos utilizados
+            //inserir valor calcular na negociacao
+            //atualizar tabela de creditos
+            //atualizar tabela de negociacao (valor)
             if (!ModelState.IsValid)
             {
                 return View();
