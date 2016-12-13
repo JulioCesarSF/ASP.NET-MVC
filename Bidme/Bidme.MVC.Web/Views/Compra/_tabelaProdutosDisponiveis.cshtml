@@ -9,6 +9,7 @@
                 <div class="caption">
                     <h4 style="text-align:center">@item.Produto.Nome</h4>
                     <p style="text-align:center">R$ @item.Produto.Valor</p>
+                    <p style="text-align:center"> Restam @item.ValidadeNegociacao.ValidadeDias dia(s)!</p>
                     <p style="text-align:center">
                         <script>
                             var valores = ["@item.Id", "@item.Produto.Valor"];
