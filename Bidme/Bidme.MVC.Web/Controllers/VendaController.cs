@@ -46,7 +46,7 @@ namespace Bidme.MVC.Web.Controllers
             if (!ModelState.IsValid)
             {
                 model.Produtos = ListarProdutos(vendedor.Id);
-                return View("Vender", 
+                return RedirectToAction("Vender", "Venda", 
                     new {
                         idUser = vendedor.IdUser,
                         tipoMensagem = "alert alert-dismissible alert-warning",
