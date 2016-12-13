@@ -10,14 +10,16 @@ using Microsoft.AspNet.Identity;
 
 namespace Bidme.MVC.Web.Controllers
 {
+    [Authorize]
     public class CompraController : Controller
-    {
+    {        
         #region FIELDs
         private UnitOfWork _unit = new UnitOfWork();
         #endregion
 
         #region GETs
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Comprar(string idUser)
         {
             if (idUser == null)
@@ -29,6 +31,9 @@ namespace Bidme.MVC.Web.Controllers
                 }
                 else
                 {
+                    //se não estiver logado, mostrar todos os produtos disponiveis para compra
+
+
                     return RedirectToAction("Index", "Painel");
                 }                
             }

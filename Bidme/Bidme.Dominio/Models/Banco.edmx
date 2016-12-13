@@ -26,12 +26,12 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdComprador" Type="nvarchar(max)" />
-          <Property Name="IdVendedor" Type="nvarchar(max)" />
+          <Property Name="IdVendedor" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Tipo" Type="int" Nullable="false" />
           <Property Name="IdProduto" Type="int" Nullable="false" />
-          <Property Name="Data" Type="datetime" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Pessoa">
           <Key>
@@ -75,6 +75,15 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
           </Key>
           <Property Name="IdCredito" Type="int" Nullable="false" />
           <Property Name="IdTransacao" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ValidadeNegociacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataValidade" Type="datetime" Nullable="false" />
+          <Property Name="ValidadeDias" Type="int" Nullable="false" />
+          <Property Name="DataInicio" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Credito_Pessoa">
           <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
@@ -148,6 +157,18 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ValidadeNegociacao_Negociacao">
+          <End Role="Negociacao" Type="Self.Negociacao" Multiplicity="1" />
+          <End Role="ValidadeNegociacao" Type="Self.ValidadeNegociacao" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Negociacao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ValidadeNegociacao">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BidmeDatabaseStoreContainer">
           <EntitySet Name="Credito" EntityType="Self.Credito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Historico" EntityType="Self.Historico" Schema="dbo" store:Type="Tables" />
@@ -155,6 +176,7 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
           <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transacao" EntityType="Self.Transacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ValidadeNegociacao" EntityType="Self.ValidadeNegociacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransacaoCredito" EntityType="Self.TransacaoCredito" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TransacaoCredito].[IdCredito] AS [IdCredito], 
@@ -185,6 +207,10 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
             <End Role="Transacao" EntitySet="Transacao" />
             <End Role="TransacaoCredito" EntitySet="TransacaoCredito" />
           </AssociationSet>
+          <AssociationSet Name="FK_ValidadeNegociacao_Negociacao" Association="Self.FK_ValidadeNegociacao_Negociacao">
+            <End Role="Negociacao" EntitySet="Negociacao" />
+            <End Role="ValidadeNegociacao" EntitySet="ValidadeNegociacao" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -204,14 +230,15 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdComprador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IdVendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdVendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Valor" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Tipo" Type="Int32" Nullable="false" />
           <Property Name="IdProduto" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Historico" Relationship="Self.FK_Historico_Negociacao" FromRole="Negociacao" ToRole="Historico" />
           <NavigationProperty Name="Produto" Relationship="Self.FK_Negociacao_Produto" FromRole="Negociacao" ToRole="Produto" />
-          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="Data" Type="DateTime" Precision="3" Nullable="false" />
+          <NavigationProperty Name="ValidadeNegociacao" Relationship="Bidme.Database.FK_ValidadeNegociacao_Negociacao" FromRole="Negociacao" ToRole="ValidadeNegociacao" />
         </EntityType>
         <EntityType Name="Pessoa">
           <Key>
@@ -305,6 +332,11 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
             <End Role="Credito" EntitySet="Credito" />
             <End Role="Transacao" EntitySet="Transacao" />
           </AssociationSet>
+          <EntitySet Name="ValidadeNegociacao" EntityType="Bidme.Database.ValidadeNegociacao" />
+          <AssociationSet Name="FK_ValidadeNegociacao_Negociacao" Association="Bidme.Database.FK_ValidadeNegociacao_Negociacao">
+            <End Role="Negociacao" EntitySet="Negociacao" />
+            <End Role="ValidadeNegociacao" EntitySet="ValidadeNegociacao" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Credito">
           <Key>
@@ -340,6 +372,28 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
         <Association Name="TransacaoCredito">
           <End Type="Bidme.Database.Credito" Role="Credito" Multiplicity="*" />
           <End Type="Bidme.Database.Transacao" Role="Transacao" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ValidadeNegociacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataValidade" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValidadeDias" Type="Int32" Nullable="false" />
+          <Property Name="DataInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Negociacao" Relationship="Bidme.Database.FK_ValidadeNegociacao_Negociacao" FromRole="ValidadeNegociacao" ToRole="Negociacao" />
+        </EntityType>
+        <Association Name="FK_ValidadeNegociacao_Negociacao">
+          <End Type="Bidme.Database.Negociacao" Role="Negociacao" Multiplicity="1" />
+          <End Type="Bidme.Database.ValidadeNegociacao" Role="ValidadeNegociacao" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Negociacao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ValidadeNegociacao">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -422,6 +476,16 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
               <ScalarProperty Name="Id" ColumnName="IdCredito" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ValidadeNegociacao">
+            <EntityTypeMapping TypeName="Bidme.Database.ValidadeNegociacao">
+              <MappingFragment StoreEntitySet="ValidadeNegociacao">
+                <ScalarProperty Name="DataInicio" ColumnName="DataInicio" />
+                <ScalarProperty Name="ValidadeDias" ColumnName="ValidadeDias" />
+                <ScalarProperty Name="DataValidade" ColumnName="DataValidade" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

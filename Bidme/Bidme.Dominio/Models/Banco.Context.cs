@@ -31,5 +31,6 @@ namespace Bidme.Dominio.Models
         public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<Credito> Credito { get; set; }
         public virtual DbSet<Transacao> Transacao { get; set; }
+        public virtual DbSet<ValidadeNegociacao> ValidadeNegociacao { get; set; }
     }
 }

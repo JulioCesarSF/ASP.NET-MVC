@@ -16,6 +16,8 @@
         <EntityTypeShape EntityType="Bidme.Database.Transacao" Width="1.5" PointX="3.125" PointY="5.25" />
         <AssociationConnector Association="Bidme.Database.FK_Credito_Pessoa" />
         <AssociationConnector Association="Bidme.Database.TransacaoCredito" />
+        <EntityTypeShape EntityType="Bidme.Database.ValidadeNegociacao" Width="1.5" PointX="5.25" PointY="5.125" />
+        <AssociationConnector Association="Bidme.Database.FK_ValidadeNegociacao_Negociacao" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

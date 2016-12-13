@@ -27,10 +27,11 @@ namespace Bidme.Dominio.Models
         public string Status { get; set; }
         public int Tipo { get; set; }
         public int IdProduto { get; set; }
-        public Nullable<System.DateTime> Data { get; set; }
+        public System.DateTime Data { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Historico> Historico { get; set; }
         public virtual Produto Produto { get; set; }
+        public virtual ValidadeNegociacao ValidadeNegociacao { get; set; }
     }
 }
