@@ -32,9 +32,15 @@ namespace Bidme.MVC.Web.Controllers
                 else
                 {
                     //se não estiver logado, mostrar todos os produtos disponiveis para compra que estão válidos
+                    //negociacoes filtradas validas
+                    var negocios = _unit.NegociacaoRepository.BuscarPor(n => n.ValidadeNegociacao.ValidadeDias > 0);
 
+                    var mV = new NegociacaoViewModel()
+                    {
+                        Negociacoes = negocios
+                    };
 
-                    return RedirectToAction("Login", "User");
+                    return View(mV);
                 }                
             }
             ICollection<Negociacao> negociacoes = ListarNegociacoes(idUser);
