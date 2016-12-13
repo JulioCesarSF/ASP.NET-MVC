@@ -33,8 +33,7 @@ namespace Bidme.MVC.Web.Controllers
                 {
                     //se não estiver logado, mostrar todos os produtos disponiveis para compra que estão válidos
                     //negociacoes filtradas validas
-                    var negocios = _unit.NegociacaoRepository.BuscarPor(n => n.ValidadeNegociacao.ValidadeDias > 0);
-
+                    var negocios = _unit.NegociacaoRepository.BuscarPor(n => n.ValidadeNegociacao.ValidadeDias > 0);                   
                     var mV = new NegociacaoViewModel()
                     {
                         Negociacoes = negocios
@@ -44,9 +43,15 @@ namespace Bidme.MVC.Web.Controllers
                 }                
             }
             ICollection<Negociacao> negociacoes = ListarNegociacoes(idUser);
+            var c = _unit.CreditoRepository.BuscarPor(cP => cP.Pessoa.IdUser == idUser);
+            var creditos = new CreditoViewModel()
+            {
+                Creditos = c
+            };
             var model = new NegociacaoViewModel()
             {
-                Negociacoes = negociacoes
+                Negociacoes = negociacoes,
+                Creditos = creditos
             };
             return View(model);
         }
@@ -112,6 +117,7 @@ namespace Bidme.MVC.Web.Controllers
         {
             return _unit.NegociacaoRepository.BuscarPor(n => n.IdVendedor != idUser, n => n.Tipo == 1)
                 .Where(n => n.IdComprador == null)
+                .Where(n=>n.ValidadeNegociacao.ValidadeDias > 0)
                 .ToList();
         }
 

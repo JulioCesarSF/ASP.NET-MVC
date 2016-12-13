@@ -42,12 +42,22 @@
                     @Html.HiddenFor(n => n.IdUser, new { @Value = User.Identity.GetUserId() })
                     @Html.HiddenFor(n => n.Status, new { @Value = "Em andamento" })
                     <div class="form-group">
+                        
                         @Html.Label("Valor do Produto")
                         @Html.TextBoxFor(n => n.Produto.Valor, new { @class = "form-control", disabled = "disabled" })
                     </div>
                     <div class="form-group">
-                        @Html.Label("Sua Oferta")
-                        @Html.TextBoxFor(n => n.Valor, new { @class = "form-control" })
+                        @Html.Label("Sua Oferta em Diamantes")
+                        @Html.TextBoxFor(n=>n.Diamantes,
+                       new
+                       {
+                           @class = "form-control",
+                           @type = "number",
+                           @step = "1",
+                           @min = "10",
+                           @max = Model.Creditos.Creditos.Last().Total,
+                           @Value = "10"
+                       })                       
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-success btn-sm" value="Enviar" />

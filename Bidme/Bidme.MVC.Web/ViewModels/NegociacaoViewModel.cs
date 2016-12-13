@@ -13,6 +13,11 @@ namespace Bidme.MVC.Web.ViewModels
         public ICollection<Negociacao> Negociacoes { get; set; }
         #endregion
 
+        #region Credito
+        public CreditoViewModel Creditos { get; set; }
+        public int Diamantes { get; set; }
+        #endregion
+
         #region Proposta do vendedor
         public int Aceite { get; set; }
         public DateTime DataInicio { get; set; }
