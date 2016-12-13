@@ -251,6 +251,7 @@
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
+    <Compile Include="ViewModels\ValidadeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

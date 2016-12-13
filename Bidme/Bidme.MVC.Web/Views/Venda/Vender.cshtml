@@ -14,7 +14,7 @@
         @HelperLayout.SubTitulo("Cadastrar Novo Produto")
 
         <div class="row">
-            @using (Html.BeginForm("Vender", "Venda"))
+            @using (Html.BeginForm("CadastrarProduto", "Venda"))
             {
                 <div class="col-md-4 col-sm-4">
                     @Html.HiddenFor(p => p.IdUser, new { @value = User.Identity.GetUserId() })

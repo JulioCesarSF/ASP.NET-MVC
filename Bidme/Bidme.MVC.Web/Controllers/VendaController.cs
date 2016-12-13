@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bidme.Dominio.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Bidme.MVC.Web.Controllers
 {
@@ -39,13 +40,18 @@ namespace Bidme.MVC.Web.Controllers
         //método responsável por cadastrar o produto para vender
         //TODO:alterar o nome para CadastrarProduto
         [HttpPost]
-        public ActionResult Vender(ProdutoViewModel model)
-        {
+        public ActionResult CadastrarProduto(ProdutoViewModel model)
+        {            
             var vendedor = _unit.PessoaRepository.BuscarPor(p => p.IdUser == model.IdUser).First();
             if (!ModelState.IsValid)
             {
                 model.Produtos = ListarProdutos(vendedor.Id);
-                return View(model);
+                return View("Vender", 
+                    new {
+                        idUser = vendedor.IdUser,
+                        tipoMensagem = "alert alert-dismissible alert-warning",
+                        mensagem = "Dados inválidos",
+                    });
             }
 
             var usuario = _unit.PessoaRepository.BuscarPor(u=>u.IdUser == model.IdUser).First();

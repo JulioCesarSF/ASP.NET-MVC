@@ -12,7 +12,7 @@ namespace Bidme.Service.DTOs
         public string IdVendedor { get; set; }
         public decimal Valor { get; set; }
         public string Status { get; set; }
-        public DateTime? Data { get; set; }
+        public DateTime Data { get; set; }
         public int Tipo { get; set; }
         public int IdProduto { get; set; }
     }

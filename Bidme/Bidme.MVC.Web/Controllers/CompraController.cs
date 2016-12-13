@@ -31,7 +31,7 @@ namespace Bidme.MVC.Web.Controllers
                 }
                 else
                 {
-                    //se não estiver logado, mostrar todos os produtos disponiveis para compra
+                    //se não estiver logado, mostrar todos os produtos disponiveis para compra que estão válidos
 
 
                     return RedirectToAction("Index", "Painel");
