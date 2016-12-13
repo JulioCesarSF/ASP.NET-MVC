@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-sm-4">                    
+                <div class="col-md-4 col-sm-4">
                     @HelperLayout.MensagemCustomizada(Model.TipoMensagem, Model.Mensagem)
                     @Html.ValidationSummary()
                 </div>
@@ -86,19 +86,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Confirmar Venda de Produto</h4>
             </div>
-            <div class="modal-body">
-                Você realmente deseja vender este produto?
-            </div>
-            <div class="modal-footer">
-                @using (Html.BeginForm("Negociar", "Venda"))
-                {
-                    <input type="hidden" id="Id" name="Id" />                                       
-                    @Html.HiddenFor(p => p.IdUser, new { @value = User.Identity.GetUserId() })
-
+            @using (Html.BeginForm("Negociar", "Venda"))
+            {
+                <input type="hidden" id="Id" name="Id" />
+                @Html.HiddenFor(p => p.IdUser, new { @value = User.Identity.GetUserId() })
+                <div class="modal-body">
+                    Antes de continuar indique a validade da sua venda confirmando a data de encerramento.
+                    <div class="form-group">
+                        @Html.Label("Data de encerramento")
+                        @Html.TextBox("DataValidade", null, new { @class="form-control" })
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <input type="submit" class="btn btn-success" value="Negociar" />
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
 </div>

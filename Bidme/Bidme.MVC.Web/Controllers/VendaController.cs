@@ -90,6 +90,8 @@ namespace Bidme.MVC.Web.Controllers
         [HttpPost]
         public ActionResult Negociar(NegociacaoViewModel model)
         {
+            //migração de id do usuário para não mostrar mais na view
+            string userId = User.Identity.GetUserId();
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Vender", 
@@ -101,21 +103,40 @@ namespace Bidme.MVC.Web.Controllers
             }
             var vendedor = _unit.PessoaRepository.BuscarPor(p => p.IdUser == model.IdUser).First();
             var produto = _unit.ProdutoRepository.BuscarPorId(model.Id);
+
+            //validade da negociacao
+            model.DataInicio = DateTime.Now;
+            model.ValidadeDias = (model.DataValidade - model.DataInicio).Days;
+            // DataValidade é o término
+            // ValidadeDias  é o cáculo de data entre (DataValidade - DataInicio) [dias]
+
+            var val = new ValidadeNegociacao()
+            {
+                DataInicio = model.DataInicio,
+                DataValidade = model.DataValidade,
+                ValidadeDias = model.ValidadeDias
+            };
+
             var negociacao = new Negociacao()
             {
                 IdVendedor = vendedor.IdUser,
                 Valor = produto.Valor,
-                Status = "Em Aberto",                
+                Status = "Em Aberto",
                 Tipo = 1,
                 IdProduto = produto.Id,
                 //Data só pode ser o dia atual, em que está iniciando a negociação
                 Data = DateTime.Now,
-                Produto = produto                                        
+                Produto = produto,
+                ValidadeNegociacao = val                           
             };
 
             try
             {
                 _unit.NegociacaoRepository.Cadastrar(negociacao);
+                //val.Negociacao = negociacao;
+                //_unit.ValidadeRepository.Cadastrar(val);
+                
+                
                 _unit.Salvar();
             }
             catch (Exception e)
@@ -125,7 +146,7 @@ namespace Bidme.MVC.Web.Controllers
                     {
                         idUser = model.IdUser,
                         tipoMensagem = "alert alert-dismissible alert-warning",
-                        mensagem = "Produto NÃO colocado para venda." + e.Message
+                        mensagem = "Produto NÃO colocado para venda." + e.InnerException.Message.ToString()
                     });
             }
 

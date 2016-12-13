@@ -9,8 +9,8 @@ namespace Bidme.MVC.Web.ViewModels
     public class PainelViewModel
     {
         #region LISTs
-        public ICollection<Negociacao> NegociacoesVenda { get; set; }
-        public ICollection<Negociacao> NegociacoesCompra { get; set; }        
+        public ICollection<Negociacao> Vendas { get; set; }
+        public ICollection<Negociacao> Compras { get; set; }        
         #endregion
 
         #region FIELDs

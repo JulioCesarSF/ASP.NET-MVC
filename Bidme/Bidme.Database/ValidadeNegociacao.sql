@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[ValidadeNegociacao]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+	[Id] INT NOT NULL PRIMARY KEY, 
     [DataValidade] DATETIME NOT NULL, 
     [ValidadeDias] INT NOT NULL, 
     [DataInicio] DATETIME NOT NULL, 

@@ -15,7 +15,9 @@ namespace Bidme.MVC.Web.ViewModels
 
         #region Proposta do vendedor
         public int Aceite { get; set; }
-        public ValidadeNegociacao Validade { get; set; }
+        public DateTime DataInicio { get; set; }
+        public DateTime DataValidade { get; set; }
+        public int ValidadeDias { get; set; }
         #endregion
 
         #region FIELDs        

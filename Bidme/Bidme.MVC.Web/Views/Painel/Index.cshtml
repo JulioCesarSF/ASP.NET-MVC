@@ -16,7 +16,9 @@
             <thead>
                 <tr>
                     <th>Id Negociação</th>
-                    <th>Data</th>
+                    <th>Data de Inicio</th>
+                    <th>Data de Término</th>
+                    <th>Validade (dias)</th>
                     <th>Nome do Produto</th>
                     <th>Imagem</th>
                     <th>Valor Negociação</th>
@@ -25,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @Html.Partial("_tabelaVendas", Model.NegociacoesVenda)
+                @Html.Partial("_tabelaVendas", Model.Vendas)
             </tbody>
         </table>
     </div>
@@ -50,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                @Html.Partial("_tabelaCompras", Model.NegociacoesCompra)
+                @Html.Partial("_tabelaCompras", Model.Compras)
             </tbody>
         </table>
     </div>

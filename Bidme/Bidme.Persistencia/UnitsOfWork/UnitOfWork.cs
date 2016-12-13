@@ -19,9 +19,23 @@ namespace Bidme.Persistencia.UnitsOfWork
         private IGenericRepository<Historico> _historicoRepository;
         private IGenericRepository<Credito> _creditoRepository;
         private IGenericRepository<Transacao> _transacaoRepository;
+        private IGenericRepository<ValidadeNegociacao> _validadeRepository;
         #endregion
 
         #region GETs e SETs
+        public IGenericRepository<ValidadeNegociacao> ValidadeRepository
+        {
+            get
+            {
+                if (_validadeRepository == null)
+                {
+                    _validadeRepository = new GenericRepository<ValidadeNegociacao>(_context);
+                }
+                return _validadeRepository;
+            }
+            set { _validadeRepository = value; }
+        }
+
         public IGenericRepository<Transacao> TransacaoRepository
         {
             get

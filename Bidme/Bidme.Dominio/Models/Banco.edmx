@@ -80,7 +80,7 @@ warning 6002: The table/view 'Bidme.Database.dbo.TransacaoCredito' does not have
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="DataValidade" Type="datetime" Nullable="false" />
           <Property Name="ValidadeDias" Type="int" Nullable="false" />
           <Property Name="DataInicio" Type="datetime" Nullable="false" />

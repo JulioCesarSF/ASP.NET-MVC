@@ -27,8 +27,8 @@ namespace Bidme.MVC.Web.Controllers
                 var p = pessoa.First();
                 var model = new PainelViewModel()
                 {
-                    NegociacoesCompra = ListarCompras(idUser),
-                    NegociacoesVenda = ListarVendas(idUser),
+                    Compras = ListarCompras(idUser),
+                    Vendas = ListarVendas(idUser),
                     Usuario = new UsuarioViewModel()
                     {
                         Pessoa = new PessoaViewModel()
@@ -38,7 +38,7 @@ namespace Bidme.MVC.Web.Controllers
                         }
                     }                   
                 };
-                return RedirectToAction("Comprar", "Compra", model);
+                return View(model);
             }            
             return RedirectToAction("Login", "User");
         }
