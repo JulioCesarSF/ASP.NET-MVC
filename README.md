@@ -3,6 +3,8 @@
 > O usuário terá créditos que possuem determinado valor e ele poderá usar estes créditos para diminuir o valor do produto que deseja comprar.
 > Créditos parcialmente implementados (12/12/16)
 
+[![Build Status](https://travis-ci.org/JulioCesarSF/ASP.NET-MVC.svg?branch=master)](https://travis-ci.org/JulioCesarSF/ASP.NET-MVC)
+
 ## Author
 > Júlio César Schincariol Filho
 
