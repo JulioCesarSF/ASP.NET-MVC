@@ -1,2 +1,2 @@
 language: csharp
-solution: Bidme\Bidme.sln
+solution: ./Bidme/Bidme.sln
